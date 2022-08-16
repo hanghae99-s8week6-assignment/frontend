@@ -1,9 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-<<<<<<< HEAD
-=======
-
->>>>>>> features
 const initialState = [];
 
 export const getPostAysnc = createAsyncThunk(
@@ -39,8 +35,8 @@ export const pickPostAysnc = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       // const res = axios.get("/api/posts");
-      const res = await axios.get("http://localhost:3001/Posts");
-      const pick = res.filter((post) => post.postid === data);
+      const res = await axios.get("http://localhost:3001/Posts")
+      const pick = res.data.find((post) => post.postid === data);
       return pick;
     } catch (error) {
       console.error(error);
@@ -78,7 +74,7 @@ export const postSlice = createSlice({
         data: action.payload,
       }))
       .addCase(pickPostAysnc.fulfilled, (state, action) => {
-        state.data = action.payload;
+        return state = action.payload;
       });
   },
 });

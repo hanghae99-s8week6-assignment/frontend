@@ -14,6 +14,7 @@ export const HeaderWrapper = styled.div`
   align-items: center;
   z-index: 500;
   height: 60px;
+  top:0;
 `;
 
 export const LinkToHome = styled(Link)`
