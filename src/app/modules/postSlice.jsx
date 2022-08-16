@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { act } from "react-dom/test-utils";
 const initialState = [];
 
 export const getPostAysnc = createAsyncThunk(
@@ -45,6 +44,20 @@ export const pickPostAysnc = createAsyncThunk(
     }
   }
 );
+
+export const deletePostAysnc = createAsyncThunk(
+  'post/deletepostThunk',
+  async (payload, thunkAPI) => {
+    try {
+      const res = await axios.delete(`http://localhost:3001/Posts/${payload}`, payload);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+)
+
 
 export const postSlice = createSlice({
   name: "post",
