@@ -7,7 +7,7 @@ import {
   ProfileImg,
 } from "./styles";
 import Menu from "../Menu/Menu";
-import gravatar from "gravatar";
+
 
 const Header = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
