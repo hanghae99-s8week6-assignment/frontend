@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signUpThunk } from "../app/modules/SignUpSlice";
+import { emailCheckThunk, signUpThunk } from "../app/modules/SignUpSlice";
 import { useNavigate } from "react-router-dom";
 import "../css/signup.css"
 
@@ -14,9 +14,6 @@ const navigate = useNavigate();
 const errormessage = useSelector(
     (state) => state.signUpInfo.error
     );
-const successmessage = useSelector(
-    (state)=>state.signUpInfo
-)
 
     const [signUpInfo,setSignUpInfo] = useState({
         email:"",
@@ -30,9 +27,7 @@ const successmessage = useSelector(
         setSignUpInfo({...signUpInfo, [name]:value})
     };
 
-    
 
-//모든 것이 채워졌을 때만 제출    
     
 
 //유효성 검사
@@ -77,34 +72,37 @@ const [passwordCheckValid, setPasswordCheckValid] = useState();
     setPasswordCheckValid(false)
 };
 
+
+//모든 것이 채워졌을 때만 제출    
 const onClickSubmitHandler = (event) => {
     event.preventDefault();
-    
+    dispatch(signUpThunk(signUpInfo))
     if((signUpInfo.userName.match(userNameRegEx) !== null)
     && (signUpInfo.password.match(passwordRegEx) !== null)
     && (signUpInfo.password === signUpInfo.passwordCheck)
-    && (errormessage?.result !== false))
+    && (signUpInfo.email.match(emailRegEx) !== null )
+    && (emailCheck >= 1)
+    )
     {
-        return dispatch(signUpThunk(signUpInfo)), navigate('/')
-        
-    }else{
-        return alert('아이디 중복확인을 해주세요') 
+       return navigate('/') 
     }
-    };
+};
+console.log(errormessage?.result)
+const [emailCheck, setEmailCheck] = useState(0)
 
 const onClickOverlap = () => {
-    dispatch(signUpThunk(signUpInfo))
-}
-
+    dispatch(emailCheckThunk(signUpInfo));
+    setEmailCheck(emailCheck + 1)
+    
+};
 
 
 //뷰
     return (
-        <div>
-        <h1>HEADERHEADERHEADERHEADERHEADERHEADERHEADERHEADER</h1>
+        <div className="bodyContainer">
         <h1 className="SignUpLogo">Sign-Up</h1>
         <div className="SignUpContainer">
-            <p>이름<input onFocus={onFocusUserNameValid} onBlur={onBlurUserNameValid} onChange={onChangeHandler} name="userName" type="text" placeholder="이름을 입력해주세요."/></p>
+            이름<input className="inputs" onFocus={onFocusUserNameValid} onBlur={onBlurUserNameValid} onChange={onChangeHandler} name="userName" type="text" placeholder="이름을 입력해주세요."/>
         <section className="messageContainer">
             {(userNameValid === true) && (signUpInfo.userName.match(userNameRegEx) === null) ? <p className="incorrect">&#10006;이름을 입력하세요</p>
             : (userNameValid === true) && (signUpInfo.userName.match(userNameRegEx) !== null) ? <p className="correct">&#10004;멋진 이름이군요</p>
@@ -113,12 +111,14 @@ const onClickOverlap = () => {
             : null
                 }
         </section>
-            <p>아이디(e-mail)<input onFocus={onFocusEmailValid} onBlur={onBlurEmailValid} onChange={onChangeHandler} name="email" type="text" placeholder="email을 입력해주세요"/></p>
-            <button onClick={onClickOverlap}>중복확인</button>
+        
+           아이디(e-mail)<input className="inputs" onFocus={onFocusEmailValid} onBlur={onBlurEmailValid} onChange={onChangeHandler} name="email" type="text" placeholder="email을 입력해주세요"/>
+            <button className="signUpButton" onClick={onClickOverlap}>체크</button>
+            
             <section className="messageContainer">
             
             </section>
-            <p>비밀번호<input onFocus={onFocusPasswordValid} onBlur={onBlurPasswordValid} onChange={onChangeHandler} name="password" type="password" placeholder="8~20자"/></p>
+            비밀번호<input className="inputs" onFocus={onFocusPasswordValid} onBlur={onBlurPasswordValid} onChange={onChangeHandler} name="password" type="password" placeholder="8~20자"/>
             <section className="messageContainer">
                 {(passwordValid === true) && (signUpInfo.password.match(passwordRegEx) === null) ? <p className="incorrect">&#10006;8~20자로 입력해주세요</p>
                 : (passwordValid === true) && (signUpInfo.password.match(passwordRegEx) !== null) ? <p className="correct">&#10004;사용가능한 비밀번호 입니다</p>
@@ -128,7 +128,7 @@ const onClickOverlap = () => {
                         }
             </section>
             
-            <p>비밀번호확인<input onFocus={onFocusPasswordCheckValid} onBlur={onBlurPasswordCheckValid} onChange={onChangeHandler} name="passwordCheck" type="password"/></p>
+            비밀번호확인<input className="inputs" onFocus={onFocusPasswordCheckValid} onBlur={onBlurPasswordCheckValid} onChange={onChangeHandler} name="passwordCheck" type="password"/>
             <section className="messageContainer">
                 {(passwordCheckValid === true) && (signUpInfo.password !== signUpInfo.passwordCheck) ? <p className="incorrect">&#10006;비밀번호가 일치하지 않습니다</p>
                 : (passwordCheckValid === true) && (signUpInfo.password === signUpInfo.passwordCheck) ? <p className="correct">&#10004;비밀번호와 일치합니다</p>
@@ -138,8 +138,8 @@ const onClickOverlap = () => {
                         }
             </section>
         <div className="makeItRow">
-        <button onClick={onClickSubmitHandler} className="submitButton">회원가입</button>
-        <button onClick={()=>{
+        <button className="signUpButton" onClick={onClickSubmitHandler} >회원가입</button>
+        <button className="signUpButton" onClick={()=>{
             navigate("/")
         }}>취소</button>
         </div>
