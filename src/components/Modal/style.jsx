@@ -8,6 +8,7 @@ export const WriteModal = styled.div`
   top: 0;
   right: 0;
   z-index: 100;
+  color: black;
 
   & > div {
     margin-top: 80px;

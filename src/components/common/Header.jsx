@@ -4,10 +4,10 @@ import {
   LinkToHome,
   ProfileModal,
   LogOutButton,
-  ProfileImg,
+  LinkProfile,
+  Line,
 } from "./styles";
 import Menu from "../Menu/Menu";
-import gravatar from "gravatar";
 
 const Header = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -32,9 +32,11 @@ const Header = () => {
         {showUserMenu && (
           <Menu show={showUserMenu} onCloseModal={onCloseModal}>
             <ProfileModal>
-              {/* <img src={gravatar.url(userData.email, { s: '28px', d: 'retro' })} alt={userData.nickname} /> */}
               <div>
-                <span id="profile-menu">내 프로필</span>
+                <LinkProfile to={"/"} id="profile-menu">
+                  내 프로필
+                </LinkProfile>
+                <Line />
                 <LogOutButton onClick={onLogOut}>로그아웃</LogOutButton>
               </div>
             </ProfileModal>
