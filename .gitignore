@@ -22,3 +22,8 @@ package.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+PostSlice.jsx
+userSlice.jsx
+store.js
+router.jsx
+App.js

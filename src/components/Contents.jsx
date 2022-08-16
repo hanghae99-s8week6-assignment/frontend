@@ -10,9 +10,9 @@ import { faHeart as RegularHeart } from "@fortawesome/free-regular-svg-icons";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { addCommentData } from "../app/modules/CommentSlice";
-import { deletePostData, getPostData } from "../app/modules/postSlice";
-import { useNavigate, useParams } from "react-router-dom";
-import Gravatar from "react-gravatar";
+import { deletePostAysnc, getPostAysnc } from "../app/modules/postSlice";
+import { useNavigate, useParams } from "react-router-dom"; 
+import Gravatar from 'react-gravatar';
 
 function Contents() {
   const commentInitialState = {
@@ -31,9 +31,8 @@ function Contents() {
   // 유저 정보를 받아온다. 해당 정보에는 email과 username이 받아와지도록.
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(getPostData(2));
-    // dispatch(getPostData(id))
+  useEffect(()=> {
+    dispatch(getPostAysnc(id))
     // 대은 님이 보내주면 해당 값 받아서 바로 dispatch 적용할 수 있도록 함.
     setRefresh(false);
   }, [dispatch, refresh]);
@@ -77,8 +76,8 @@ function Contents() {
 
   function deletePost(event) {
     event.preventDefault();
-    dispatch(deletePostData(id));
-    navigate("/");
+    dispatch(deletePostAysnc(id));
+    navigate('/')
     // 받아오는 id를 체크해서 글 삭제해주고 main으로 navigate 시켜주도록 함.
   }
   return (
