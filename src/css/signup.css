@@ -1,0 +1,44 @@
+body{
+    background-color: #6096BA; 
+    /*서브컬러 #282D4E*/
+    color:#f3eff5;
+}
+
+input{
+    height: 18px;
+    margin-left: 10px;
+}
+
+.SignUpLogo{
+    margin-left: 2%;
+    font-size: 50px;
+    letter-spacing: 7px;
+}
+
+.SignUpContainer{
+    padding: 1% 0 0 2%;
+    width: 100%;
+    height: 35vh;
+    background-color:  black;
+    font-size: 18px;
+}
+
+.incorrect{
+    font-size: 14px;
+    color: red;
+}
+
+.correct{
+    font-size: 14px;
+    color: green;
+}
+
+.submitButton{
+   background-color:#f3eff5;
+   margin: 0 0.1% 0 0;
+}
+
+.correct, .incorrect{
+    margin-left: 8px;
+    padding-top: 6px;
+}
