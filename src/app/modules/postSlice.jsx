@@ -1,9 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-<<<<<<< HEAD
-=======
 
->>>>>>> features
 const initialState = [];
 
 export const getPostAysnc = createAsyncThunk(
