@@ -8,7 +8,7 @@ import {
   ImagePreview,
 } from "./styles";
 import useInput from "../../hooks/useInput";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postPostAysnc } from "../../app/modules/postSlice";
 import S3upload from "react-aws-s3";
 import imageCompression from "browser-image-compression";
@@ -21,6 +21,8 @@ const PostModal = ({ setShowWriteModal }) => {
 
   const dispatch = useDispatch();
   const imgUpload = useRef();
+  const Posts = useSelector((state) => state.posts);
+  console.log(Posts.postLoading);
 
   const onImgChange = async (e) => {
     const imageFile = e.target.files[0];
@@ -53,14 +55,15 @@ const PostModal = ({ setShowWriteModal }) => {
         const ReactS3Client = new S3upload(config);
         ReactS3Client.uploadFile(file, newFileName)
           .then((data) => {
-            console.log(data.status);
             if (data.status === 204) {
               let imgUrl = data.location;
               dispatch(postPostAysnc({ title, body, Images: imgUrl }));
             }
           })
           .then(() => {
-            // window.location.reload();
+            if (Posts.postLoading) {
+              console.log("제발좀제발");
+            }
           });
       } else {
         dispatch(postPostAysnc({ title, body }));

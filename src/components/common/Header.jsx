@@ -6,33 +6,32 @@ import {
   LinkProfile,
   Line,
   LinkTo,
+  ProfileImage,
+  Profile,
 } from "./styles";
 import Menu from "../Menu/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { userCheckThunk } from "../../app/modules/LoginSlice";
+import Gravatar from "react-gravatar";
 
 const Header = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   const dispatch = useDispatch();
 
-  const userData = useSelector((state) => state.userLogin.userLogin);
+  const userData = useSelector((state) => state.userLogin?.userLogin[0]);
 
   useEffect(() => {
-    console.log("re");
     dispatch(userCheckThunk());
-  }, [userData]);
+  }, []);
 
-  console.log("userData:", userData);
   const onClickUserProfile = useCallback((e) => {
     e.stopPropagation();
     setShowUserMenu((prev) => !prev);
-    console.log(showUserMenu);
   }, []);
 
   const onCloseModal = useCallback(() => {
     setShowUserMenu(false);
-    console.log(showUserMenu);
   }, []);
 
   const onLogOut = useCallback(() => {}, []);
@@ -40,8 +39,15 @@ const Header = () => {
     <div>
       <HeaderWrapper>
         <LinkTo to="/">프로젝트 홈트</LinkTo>
-        {userData?.length ? (
-          <div onClick={onClickUserProfile}>프로필 이미지 버튼</div>
+        {userData ? (
+          <Profile onClick={onClickUserProfile}>
+            <Gravatar
+              style={ProfileImage}
+              default="identicon"
+              email="a-email@example.com"
+            />
+            <div>{userData.userName}</div>
+          </Profile>
         ) : (
           <LinkTo to="/login ">로그인</LinkTo>
         )}

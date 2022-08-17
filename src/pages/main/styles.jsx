@@ -70,7 +70,7 @@ export const Cards = styled.div`
     font-size: 16px;
     opacity: 0.5;
     font-weight: 500;
-    margin-bottom: 5px;
+    margin-bottom: 18px;
   }
   & div {
     padding-left: 10px;

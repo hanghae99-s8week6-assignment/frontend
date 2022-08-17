@@ -3,7 +3,6 @@ import axios from "axios";
 const initialState = [];
 
 const accessToken = localStorage.getItem("user");
-console.log(accessToken);
 
 export const getPostAysnc = createAsyncThunk(
   "post/getPostThunk",
@@ -22,17 +21,11 @@ export const postPostAysnc = createAsyncThunk(
   "post/postThunk",
   async (data, thunkAPI) => {
     try {
-      console.log({ data, token: accessToken });
-      const res = await axios.post(
-        "post",
-        { data, token: accessToken },
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: accessToken,
-          },
-        }
-      );
+      const res = await axios.post("post", data, {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
       return res.data;
     } catch (error) {
       console.error(error);
@@ -79,9 +72,14 @@ export const postSlice = createSlice({
         ...state,
         data: action.payload,
       }))
+      .addCase(postPostAysnc.pending, (state, action) => ({
+        ...state,
+        postLoading: false,
+      }))
       .addCase(postPostAysnc.fulfilled, (state, action) => ({
         data: action.payload,
         ...state,
+        postLoading: true,
       }))
       .addCase(pickPostAysnc.fulfilled, (state, action) => {
         return (state = action.payload);
