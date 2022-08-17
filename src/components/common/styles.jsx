@@ -14,7 +14,7 @@ export const HeaderWrapper = styled.div`
   align-items: center;
   z-index: 500;
   height: 60px;
-  top:0;
+  top: 0;
 `;
 
 export const LinkToHome = styled(Link)`
@@ -32,7 +32,7 @@ export const ProfileImg = styled.img`
 
 export const ProfileModal = styled.div`
   display: flex;
-  padding: 20px;
+  padding: 15px;
   background-color: white;
   & img {
     display: flex;
@@ -40,22 +40,27 @@ export const ProfileModal = styled.div`
 
   & > div {
     display: flex;
+    height: 50px;
     flex-direction: column;
-    margin-left: 10px;
-  }
-
-  & #profile-name {
-    font-weight: bold;
-    display: inline-flex;
-  }
-
-  & #profile-active {
-    font-size: 13px;
-    display: inline-flex;
+    margin: auto;
   }
 `;
+
+export const LinkProfile = styled(Link)`
+  padding-left: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+`;
+
 export const LogOutButton = styled.button`
   border: none;
   background-color: transparent;
   font-size: 16px;
+  cursor: pointer;
+`;
+
+export const Line = styled.hr`
+  width: 100%;
+  size: 1px;
 `;

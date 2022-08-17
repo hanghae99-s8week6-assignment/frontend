@@ -77,7 +77,7 @@ function Contents() {
   function deletePost(event) {
     event.preventDefault();
     dispatch(deletePostAysnc(id));
-    navigate('/')
+    navigate("/");
     // 받아오는 id를 체크해서 글 삭제해주고 main으로 navigate 시켜주도록 함.
   }
   // if (postData !== null && postData !== undefined) {

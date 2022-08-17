@@ -1,9 +1,9 @@
 import axios from "axios";
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
-    userLogin: [],
-    isLoading: false,
-    error: null,
+  userLogin: [],
+  isLoading: false,
+  error: null,
 };
 
 export const loginThunk = createAsyncThunk(
@@ -21,6 +21,7 @@ export const loginThunk = createAsyncThunk(
             return thunkAPI.rejectWithValue(error.response.data);
         }
     }
+  }
 );
 
 

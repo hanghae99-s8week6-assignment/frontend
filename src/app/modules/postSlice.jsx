@@ -21,7 +21,9 @@ export const postPostAysnc = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       // const res = await axios.post("/api/post", data);
-      const res = await axios.post("http://localhost:3001/Posts", data);
+      const res = await axios.post("http://localhost:3001/Posts", data, {
+        withCredentials: true,
+      });
       return res.data;
     } catch (error) {
       console.error(error);
@@ -35,7 +37,7 @@ export const pickPostAysnc = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       // const res = axios.get("/api/posts");
-      const res = await axios.get("http://localhost:3001/Posts")
+      const res = await axios.get("http://localhost:3001/Posts");
       const pick = res.data.find((post) => post.postid === data);
       return pick;
     } catch (error) {
@@ -46,18 +48,20 @@ export const pickPostAysnc = createAsyncThunk(
 );
 
 export const deletePostAysnc = createAsyncThunk(
-  'post/deletepostThunk',
+  "post/deletepostThunk",
   async (payload, thunkAPI) => {
     try {
-      const res = await axios.delete(`http://localhost:3001/Posts/${payload}`, payload);
+      const res = await axios.delete(
+        `http://localhost:3001/Posts/${payload}`,
+        payload
+      );
       return res.data;
     } catch (error) {
       console.error(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
-)
-
+);
 
 export const postSlice = createSlice({
   name: "post",
@@ -70,8 +74,8 @@ export const postSlice = createSlice({
         data: action.payload,
       }))
       .addCase(postPostAysnc.fulfilled, (state, action) => ({
-        ...state,
         data: action.payload,
+        ...state,
       }))
       .addCase(pickPostAysnc.fulfilled, (state, action) => {
         return state = action.payload;
