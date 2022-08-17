@@ -36,7 +36,6 @@ function Contents() {
     // 대은 님이 보내주면 해당 값 받아서 바로 dispatch 적용할 수 있도록 함.
     setRefresh(false);
   }, [dispatch, refresh]);
-  console.log(postData)
 
   function changeComment(event) {
     setComment({ ...comment, content: event.target.value });

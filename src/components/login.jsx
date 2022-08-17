@@ -40,6 +40,7 @@ const [emailValid, setEmailValid] = useState();
 const onSubmitHandler = (event) => {
     event.preventDefault();
     dispatch(loginThunk(login))
+    navigate('/')
 };
 
     return (
