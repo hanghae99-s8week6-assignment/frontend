@@ -3,25 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { deleteCommentData } from "../app/modules/CommentSlice";
-import { useEffect, useState } from "react";
-
 
 function Reply ({setRefresh}) {
   const state = useSelector(state => state.comment);
   const dispatch = useDispatch();
-  const [go, setGo] = useState(false)
-
-  useEffect (()=>{
-    setGo(false)
-  },[go])
-
 
   const deleteComment = (event) => {
     event.preventDefault();
     console.log(event.target.id);
     dispatch(deleteCommentData(Number(event.target.id)));
     setRefresh(true)
-    setGo(true)
   }
 
   return (
