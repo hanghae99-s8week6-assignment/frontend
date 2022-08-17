@@ -38,10 +38,10 @@ export const loginSlice = createSlice({
   reducers: {},
   extraReducers: {
     [loginThunk.fulfilled]: (state, action) => {
-      state.userLogin.push(action.payload);
+      state.userLogin.push(action.payload)
     },
     [loginThunk.rejected]: (state, action) => {
-      return alert(action.payload.error), { ...state, error: action.payload };
+      return console.log(action.payload.error), { ...state, error: action.payload };
     },
     [userCheckThunk.fulfilled]: (state, { payload }) => {
       return { ...state, userLogin: [...state.userLogin, payload] };

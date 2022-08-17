@@ -19,20 +19,26 @@
     font-size: 22px;
     display: flex;
     width: 500px;
-    height: 50vh;
+    height:700px;
     border: 1px solid #ffffff;
     background-color: #0e0f10c2;
     flex-direction: column;
     text-align: center;
     justify-content: center;
     align-items: center;
-    margin: 12% auto 0 auto;
+    margin: 50px auto 0 auto;
     color: white;
 }
 
+.letter{
+    margin: 15px 0;
+}
+
 .button1{
+    width: 90px;
     background-color: white;
     color: black;
+    margin-bottom: 50px;
 }
 
 .button2, .button3{
@@ -40,7 +46,6 @@
     color: white;
 }
 
-.button1, .button2, .button3, .button4 {
+.button2, .button3, .button4 {
     width: 70px;
-    height: 27px;
 }

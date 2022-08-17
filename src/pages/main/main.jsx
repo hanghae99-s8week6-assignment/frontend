@@ -25,7 +25,6 @@ function Main() {
     .sort((a, b) => b.liked - a.liked)
     .slice(0, 10);
 
-  console.log("re");
   useEffect(() => {
     dispatch(getPostAysnc());
   }, []);

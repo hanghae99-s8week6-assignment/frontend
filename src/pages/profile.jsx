@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Gravatar from "react-gravatar";
-
+import React from "react";
 
 function  Profile () {
 
