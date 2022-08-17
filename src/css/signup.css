@@ -1,81 +1,78 @@
+.bodyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-image: url("https://images.unsplash.com/photo-1605296867724-fa87a8ef53fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c2l4JTIwcGFja3xlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60");
 
-.bodyContainer{
-   display: flex;
-   flex-direction: column;
-    align-items: center;
-   text-align: center; 
-    background-image: url("https://images.unsplash.com/photo-1605296867724-fa87a8ef53fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c2l4JTIwcGFja3xlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60");
-    
-    width: 100%;
-    height: 100vh;
-
-    /*서브컬러 #282D4E*/
+  width: 100%;
+  height: 100vh;
+}
+/*서브컬러 #282D4E*/
 /* color:#f3eff5; */
 /* } */
 
-.inputs{
-    margin: 15px 0;
-    height: 18px;
-    
+.inputs {
+  margin: 15px 0;
+  height: 18px;
 }
 
-.SignUpLogo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 20vh;
-    color: #6096BA; 
-    margin-left: 2%;
-    font-size: 50px;
-    letter-spacing: 7px;
+.SignUpLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 20vh;
+  color: #6096ba;
+  margin-left: 2%;
+  font-size: 50px;
+  letter-spacing: 7px;
 }
 
-.SignUpContainer{
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 500px;
-    height:50vh;
-    background-color:  rgba(255, 255, 255, 0.588);
-    font-size: 15px;
-    color: black;
+.SignUpContainer {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 50vh;
+  background-color: rgba(255, 255, 255, 0.588);
+  font-size: 15px;
+  color: black;
 }
 
-.contentsContainer{
-    width: 100%;
+.contentsContainer {
+  width: 100%;
 }
 
-.overlapButton{
-    height: 30px;
+.overlapButton {
+  height: 30px;
 }
 
-.makeItRow{
-    display: flex;
+.makeItRow {
+  display: flex;
 }
 
-.incorrect{
-    font-size: 14px;
-    color: red;
-    margin: 0 0 15px 0;
+.incorrect {
+  font-size: 14px;
+  color: red;
+  margin: 0 0 15px 0;
 }
 
-.correct{
-    font-size: 14px;
-    color: green;
-   margin: 0 0 15px 0;
+.correct {
+  font-size: 14px;
+  color: green;
+  margin: 0 0 15px 0;
 }
 
-
-.signUpButton{
-    width: 100px;
-    height: 24px;
-    font-size: 13px;
-    background-color: white;
-    color: black;
-    margin: 10px 0 10px 5px;
+.signUpButton {
+  width: 100px;
+  height: 24px;
+  font-size: 13px;
+  background-color: white;
+  color: black;
+  margin: 10px 0 10px 5px;
 }
 
 .correct,
@@ -84,6 +81,6 @@
   padding-top: 6px;
 }
 
-::placeholder{
-    text-align: center;
+::placeholder {
+  text-align: center;
 }

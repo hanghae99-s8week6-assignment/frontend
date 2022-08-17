@@ -60,11 +60,11 @@ const PostModal = ({ setShowWriteModal }) => {
             }
           })
           .then(() => {
-            window.location.reload();
+            // window.location.reload();
           });
       } else {
         dispatch(postPostAysnc({ title, body }));
-        window.location.reload();
+        // window.location.reload();
       }
     },
     [title, body, fileUrl]

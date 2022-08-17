@@ -17,7 +17,7 @@ export const HeaderWrapper = styled.div`
   top: 0;
 `;
 
-export const LinkToHome = styled(Link)`
+export const LinkTo = styled(Link)`
   text-decoration: none;
   color: white;
 `;

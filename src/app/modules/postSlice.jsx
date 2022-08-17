@@ -2,12 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 const initialState = [];
 
+const accessToken = localStorage.getItem("user");
+console.log(accessToken);
+
 export const getPostAysnc = createAsyncThunk(
   "post/getPostThunk",
   async (thunkAPI) => {
     try {
-      // const res = await axios.get("/api/posts");
-      const res = await axios.get("http://localhost:3001/Posts");
+      const res = await axios.get("/post");
       return res.data;
     } catch (error) {
       console.error(error);
@@ -20,10 +22,17 @@ export const postPostAysnc = createAsyncThunk(
   "post/postThunk",
   async (data, thunkAPI) => {
     try {
-      // const res = await axios.post("/api/post", data);
-      const res = await axios.post("http://localhost:3001/Posts", data, {
-        withCredentials: true,
-      });
+      console.log({ data, token: accessToken });
+      const res = await axios.post(
+        "post",
+        { data, token: accessToken },
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: accessToken,
+          },
+        }
+      );
       return res.data;
     } catch (error) {
       console.error(error);
@@ -37,7 +46,7 @@ export const pickPostAysnc = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       // const res = axios.get("/api/posts");
-      const res = await axios.get("http://localhost:3001/Posts");
+      const res = await axios.get("/post");
       const pick = res.data.find((post) => post.postid === data);
       return pick;
     } catch (error) {
@@ -51,10 +60,7 @@ export const deletePostAysnc = createAsyncThunk(
   "post/deletepostThunk",
   async (payload, thunkAPI) => {
     try {
-      const res = await axios.delete(
-        `http://localhost:3001/Posts/${payload}`,
-        payload
-      );
+      const res = await axios.delete(`/post/${payload}`, payload);
       return res.data;
     } catch (error) {
       console.error(error);
@@ -78,7 +84,7 @@ export const postSlice = createSlice({
         ...state,
       }))
       .addCase(pickPostAysnc.fulfilled, (state, action) => {
-        return state = action.payload;
+        return (state = action.payload);
       });
   },
 });
