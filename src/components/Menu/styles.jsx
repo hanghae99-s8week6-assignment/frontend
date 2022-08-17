@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CreateMenu = styled.div`
   position: fixed;
   top: 60px;
-  right: 300px;
+  right: 200px;
   z-index: 1000;
 
   & > div {
@@ -11,7 +11,7 @@ export const CreateMenu = styled.div`
     display: inline-block;
     border-radius: 6px;
     user-select: none;
-    min-width: 300px;
+    min-width: 200px;
     z-index: 512;
     max-height: calc(100vh - 20px);
     color: rgb(29, 28, 29);

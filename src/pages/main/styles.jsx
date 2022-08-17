@@ -15,11 +15,12 @@ export const BodyWrapper = styled.div`
     font-size: 24px;
   }
 `;
-export const headWrap = styled.div`
+export const HeadWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
+
 export const WriteButton = styled.button`
   height: 30px;
   width: 80px;
@@ -41,6 +42,7 @@ export const CardWrapper = styled.div`
   gap: 12px;
   flex-wrap: nowrap;
   overflow-y: scroll;
+  padding-bottom: 5px;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -53,6 +55,7 @@ export const Cards = styled.div`
   border-radius: 6px;
   background-color: #e7ecef;
   color: black;
+  box-shadow: 0 2px 5px 3px #121212;
 
   & img {
     border-top-left-radius: 6px;

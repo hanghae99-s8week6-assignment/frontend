@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Label = styled.label`
   margin-bottom: 16px;
+  color: black;
 
   & > span {
     display: block;
@@ -34,21 +35,9 @@ export const Input = styled.input`
   }
 `;
 
-export const ImageWrapper = styled.div`
-  display: flex;
-  max-width: 100%;
-  gap: 12px;
-  flex-wrap: nowrap;
-  overflow-y: scroll;
-  margin-bottom: 20px;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  & img {
-    width: 30%;
-    max-height: 200px;
-  }
+export const ImagePreview = styled.img`
+  width: 30%;
+  max-height: 200px;
 `;
 
 export const ImageInput = styled.input`
