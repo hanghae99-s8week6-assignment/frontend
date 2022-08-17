@@ -1,35 +1,56 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import {
   HeaderWrapper,
-  LinkToHome,
   ProfileModal,
   LogOutButton,
   LinkProfile,
   Line,
+  LinkTo,
+  ProfileImage,
+  Profile,
 } from "./styles";
 import Menu from "../Menu/Menu";
-
+import { useDispatch, useSelector } from "react-redux";
+import { userCheckThunk } from "../../app/modules/LoginSlice";
+import Gravatar from "react-gravatar";
 
 const Header = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
 
+  const dispatch = useDispatch();
+
+  const userData = useSelector((state) => state.userLogin?.userLogin[0]);
+
+  useEffect(() => {
+    dispatch(userCheckThunk());
+  }, []);
+
   const onClickUserProfile = useCallback((e) => {
     e.stopPropagation();
     setShowUserMenu((prev) => !prev);
-    console.log(showUserMenu);
   }, []);
 
   const onCloseModal = useCallback(() => {
     setShowUserMenu(false);
-    console.log(showUserMenu);
   }, []);
 
   const onLogOut = useCallback(() => {}, []);
   return (
     <div>
       <HeaderWrapper>
-        <LinkToHome to="/">프로젝트 홈트</LinkToHome>
-        <div onClick={onClickUserProfile}>프로필 이미지 버튼</div>
+        <LinkTo to="/">프로젝트 홈트</LinkTo>
+        {userData ? (
+          <Profile onClick={onClickUserProfile}>
+            <Gravatar
+              style={ProfileImage}
+              default="identicon"
+              email="a-email@example.com"
+            />
+            <div>{userData.userName}</div>
+          </Profile>
+        ) : (
+          <LinkTo to="/login ">로그인</LinkTo>
+        )}
         {showUserMenu && (
           <Menu show={showUserMenu} onCloseModal={onCloseModal}>
             <ProfileModal>

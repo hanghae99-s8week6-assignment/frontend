@@ -41,28 +41,28 @@
     color: rgba(5, 5, 5, 0.902);
 }
 
-.contentsContainer{
-    width: 100%;
+.contentsContainer {
+  width: 100%;
 }
 
-.overlapButton{
-    height: 30px;
+.overlapButton {
+  height: 30px;
 }
 
-.makeItRow{
-    display: flex;
+.makeItRow {
+  display: flex;
 }
 
-.incorrect{
-    font-size: 14px;
-    color: red;
-    margin: 0 0 15px 0;
+.incorrect {
+  font-size: 14px;
+  color: red;
+  margin: 0 0 15px 0;
 }
 
-.correct{
-    font-size: 14px;
-    color: green;
-   margin: 0 0 15px 0;
+.correct {
+  font-size: 14px;
+  color: green;
+  margin: 0 0 15px 0;
 }
 
 

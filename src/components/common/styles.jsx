@@ -17,7 +17,7 @@ export const HeaderWrapper = styled.div`
   top: 0;
 `;
 
-export const LinkToHome = styled(Link)`
+export const LinkTo = styled(Link)`
   text-decoration: none;
   color: white;
 `;
@@ -63,4 +63,21 @@ export const LogOutButton = styled.button`
 export const Line = styled.hr`
   width: 100%;
   size: 1px;
+`;
+
+export const ProfileImage = {
+  width: "45px",
+  height: "45px",
+
+  border: "2px solid #274C77",
+  borderRadius: "30px",
+};
+
+export const Profile = styled.div`
+  display: flex;
+  font-size: 20px;
+  & > div {
+    line-height: 50px;
+    margin: 0 10px;
+  }
 `;

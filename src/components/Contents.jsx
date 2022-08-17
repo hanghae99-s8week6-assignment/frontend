@@ -16,8 +16,8 @@ import Gravatar from 'react-gravatar';
 
 function Contents() {
   const commentInitialState = {
-    commentId: 0,
     userName: "",
+    email: "",
     content: "",
   };
 
@@ -47,8 +47,8 @@ function Contents() {
     dispatch(
       addCommentData({
         ...comment,
-        commentId: new Date().getTime(),
-        userName: new Date().getTime().toString(16).substring(0, 8),
+        userName: "유저 이름",
+        email: "이메일",
       })
     );
     setRefresh(true);
@@ -76,7 +76,7 @@ function Contents() {
 
   function deletePost(event) {
     event.preventDefault();
-    dispatch(deletePostAysnc(id));
+    dispatch(deletePostAysnc(Number(id)));
     navigate("/");
     // 받아오는 id를 체크해서 글 삭제해주고 main으로 navigate 시켜주도록 함.
   }
@@ -97,7 +97,7 @@ function Contents() {
                 icon={faArrowLeft}
                 onClick={moveToMain}
               />
-              <Image src={postData.Images[0].src} alt="user's hometraining image" />
+              <Image src={postData.Images} alt="user's hometraining image" />
             </ImageBox>
             <ContentsBox>
               <ProfileBar>
