@@ -15,6 +15,7 @@ export const toggleLikedFetch = createAsyncThunk(
   async(payload) => {
     const response = await instance.post(`/post/${payload.postId}/like`, payload)
     return response.data;
+
   }
 )
 

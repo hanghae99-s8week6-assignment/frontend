@@ -14,7 +14,6 @@ import { deletePostAysnc, pickPostAysnc } from "../app/modules/postSlice";
 import { getLikedFetch, toggleLikedFetch } from "../app/modules/likedSlice";
 import { useNavigate, useParams } from "react-router-dom"; 
 import Gravatar from 'react-gravatar';
-import { userCheckThunk } from "../app/modules/LoginSlice";
 
 function Contents() {
   const commentInitialState = {

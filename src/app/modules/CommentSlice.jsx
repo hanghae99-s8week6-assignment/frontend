@@ -43,8 +43,8 @@ const CommentSlice = createSlice({
     });
     builder.addCase(addCommentData.fulfilled, (state, action) => {
       return state = [...state, action.payload];
-      // addCase 관련으로 내일 수정이 좀 필요할 거 같음...
-      // 데이터 더해주고, 결과값을 자신의 데이터로 반환한다거나 해서.. (바로 갱신되도록.)
+      // addCase 관련으로 내일 수정
+      // 데이터 더해주고, commentId까지 더해진 결과값을 자신의 데이터로 반환시켜 내용에 바로 저장되도록.
     });
     builder.addCase(deleteCommentData.fulfilled, (state, action) => {
         console.log([...state].length)

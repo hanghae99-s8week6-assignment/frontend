@@ -1,45 +1,44 @@
-.bodyContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  background-image: url("https://images.unsplash.com/photo-1605296867724-fa87a8ef53fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c2l4JTIwcGFja3xlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60");
-
-  width: 100%;
-  height: 100vh;
+.bodyContainer{
+   display: flex;
+   flex-direction: column;
+    align-items: center;
+   text-align: center; 
+    background-image: url("https://images.unsplash.com/photo-1605296867724-fa87a8ef53fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c2l4JTIwcGFja3xlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60");
+    
+    width: 100%;
+    height: 100vh;
 }
-/*서브컬러 #282D4E*/
+    /*서브컬러 #282D4E*/
 /* color:#f3eff5; */
 /* } */
 
-.inputs {
-  margin: 15px 0;
-  height: 18px;
+.inputs{
+    margin: 10px 0;
+    height: 20px;
+    
 }
 
-.SignUpLogo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 20vh;
-  color: #6096ba;
-  margin-left: 2%;
-  font-size: 50px;
-  letter-spacing: 7px;
+.SignUpLogo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 20vh;
+    letter-spacing: 10px;
 }
 
-.SignUpContainer {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 500px;
-  height: 50vh;
-  background-color: rgba(255, 255, 255, 0.588);
-  font-size: 15px;
-  color: black;
+.SignUpContainer{
+    border: 1px solid white;
+    margin: 0 0 0 -15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    height: 700px;
+    background-color:  rgba(255, 255, 255, 0.588);
+    font-size: 25px;
+    color: rgba(5, 5, 5, 0.902);
 }
 
 .contentsContainer {
@@ -66,13 +65,23 @@
   margin: 0 0 15px 0;
 }
 
-.signUpButton {
-  width: 100px;
-  height: 24px;
-  font-size: 13px;
-  background-color: white;
-  color: black;
-  margin: 10px 0 10px 5px;
+
+.signUpButton{
+    width: 90px;
+    height: 24px;
+    letter-spacing: 2px;
+    font-size: 13px;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    margin: 20px 5px 10px 5px;
+}
+
+.overlapButton{
+    height: 24px;
+    color: rgb(255, 255, 255);
+    background-color: black;
+    width: 80px;
+    margin-bottom: 30px;
 }
 
 .correct,
@@ -81,6 +90,32 @@
   padding-top: 6px;
 }
 
-::placeholder {
-  text-align: center;
+::placeholder{
+    text-align: center;
 }
+/* 이펙트이펙트이펙트 */
+
+h1.SignUpLogo {
+    margin: 0 auto 0 auto ;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+    font-size: 82px;
+    text-align: center;
+    text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+      color: #ffffff; 
+      letter-spacing: .15em;
+      text-shadow: 
+        1px -1px 0 #d5d5d5, 
+        -1px 2px 1px #c3c3c3, 
+        -2px 4px 1px #bbbbbb, 
+        -3px 6px 1px #949494, 
+        -4px 8px 1px #898989, 
+        -5px 10px 1px #727272, 
+        -6px 12px 1px #6c6c6c, 
+        -7px 14px 1px #666666, 
+        -8px 16px 1px #525252, 
+        -9px 18px 1px #434343, 
+        -10px 20px 1px #3c3c3c, 
+        -11px 22px 1px #212121   
+
+  }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
@@ -6,6 +7,7 @@ import { deleteCommentData } from "../app/modules/CommentSlice";
 
 function Reply ({setRefresh, commentList, postData }) {
   const dispatch = useDispatch();
+  const [, setYeah] = useState("asdg")
 
   const userData = useSelector((state) => state.userLogin?.userLogin[0]);
 
@@ -17,14 +19,15 @@ function Reply ({setRefresh, commentList, postData }) {
     }
     dispatch(deleteCommentData(idData));
     setRefresh(true)
+    setYeah("")
   }
-
+  console.log(commentList)
   return (
     <>
       <ReplyContainer>
         {commentList === undefined || commentList === null ?
           <GuideText>로딩중입니다..</GuideText> : 
-          commentList.length === 0 || commentList == undefined ?
+          commentList.length === 0 || commentList === undefined ?
             <GuideText>등록된 댓글이 없습니다.</GuideText> :
             commentList.map(elem => {
               return <ReplyList key={elem.commentId}>
