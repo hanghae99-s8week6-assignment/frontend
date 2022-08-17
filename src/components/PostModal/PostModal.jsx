@@ -53,25 +53,26 @@ const PostModal = ({ setShowWriteModal }) => {
           secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
         };
         const ReactS3Client = new S3upload(config);
-        ReactS3Client.uploadFile(file, newFileName)
-          .then((data) => {
-            if (data.status === 204) {
-              let imgUrl = data.location;
-              dispatch(postPostAysnc({ title, body, Images: imgUrl }));
-            }
-          })
-          .then(() => {
-            if (Posts.postLoading) {
-              console.log("제발좀제발");
-            }
-          });
+        ReactS3Client.uploadFile(file, newFileName).then((data) => {
+          if (data.status === 204) {
+            let imgUrl = data.location;
+            dispatch(postPostAysnc({ title, body, Images: imgUrl }));
+          }
+        });
       } else {
         dispatch(postPostAysnc({ title, body }));
-        // window.location.reload();
       }
     },
     [title, body, fileUrl]
   );
+
+  // if(Posts.postLoading === false){
+
+  // }
+
+  // if (Posts.postLoading) {
+  //   window.location.reload();
+  // }
 
   return (
     <>

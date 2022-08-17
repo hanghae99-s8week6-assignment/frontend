@@ -85,3 +85,24 @@ export const Button = styled.button`
     box-shadow: 0 0 0 1px var(--saf-0), 0 0 0 5px rgba(29, 155, 209, 0.3);
   }
 `;
+
+export const Spinner = styled.div`
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #ffffffb7;
+`;
+
+export const LoadingText = styled.div`
+  font-size: 24px;
+  text-align: center;
+`;

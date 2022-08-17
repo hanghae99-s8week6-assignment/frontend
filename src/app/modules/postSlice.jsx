@@ -1,14 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-const initialState = [];
+import { instance } from "./instance";
 
-const accessToken = localStorage.getItem("user");
+const initialState = [];
 
 export const getPostAysnc = createAsyncThunk(
   "post/getPostThunk",
   async (thunkAPI) => {
     try {
-      const res = await axios.get("/post");
+      const res = await instance.get("/post");
       return res.data;
     } catch (error) {
       console.error(error);
@@ -21,11 +20,7 @@ export const postPostAysnc = createAsyncThunk(
   "post/postThunk",
   async (data, thunkAPI) => {
     try {
-      const res = await axios.post("post", data, {
-        headers: {
-          Authorization: accessToken,
-        },
-      });
+      const res = await instance.post("post", data);
       return res.data;
     } catch (error) {
       console.error(error);
@@ -39,8 +34,8 @@ export const pickPostAysnc = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       // const res = axios.get("/api/posts");
-      const res = await axios.get("/post");
-      const pick = res.data.find((post) => post.postid === data);
+      const res = await instance.get("/post");
+      const pick = res.data.Post.find((post) => post.postId === data);
       return pick;
     } catch (error) {
       console.error(error);
@@ -53,7 +48,7 @@ export const deletePostAysnc = createAsyncThunk(
   "post/deletepostThunk",
   async (payload, thunkAPI) => {
     try {
-      const res = await axios.delete(`/post/${payload}`, payload);
+      const res = await instance.delete(`/post/${payload}`, payload);
       return res.data;
     } catch (error) {
       console.error(error);

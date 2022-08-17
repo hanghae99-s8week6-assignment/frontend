@@ -1,14 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-axios.defaults.baseURL = process.env.REACT_APP_API;
-axios.defaults.withCredentials = true;
+import { instance } from "./instance";
 
 export const getCommentData = createAsyncThunk(
   "comment/getComment",
   async () => {
-    const response = await axios.get("/comments");
+    const response = await instance.get("/comments");
     return response.data;
   }
 );
@@ -16,7 +13,7 @@ export const getCommentData = createAsyncThunk(
 export const addCommentData = createAsyncThunk(
   "comment/addComment",
   async (payload) => {
-    const response = await axios.post("/comments", payload);
+    const response = await instance.post("/comments", payload);
     return response.data;
   }
 );
@@ -25,7 +22,7 @@ export const deleteCommentData = createAsyncThunk(
   "comment/deleteComment",
   async (payload) => {
     console.log(payload);
-    const response = await axios.delete(`/comments/${payload}`);
+    const response = await instance.delete(`/comments/${payload}`);
     console.log(response);
     return payload;
   }

@@ -1,5 +1,5 @@
-import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { instance } from "./instance";
 
 const initialState = {
   signUpInfo: [],
@@ -11,7 +11,7 @@ export const signUpThunk = createAsyncThunk(
   "user/signup",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("/user/signup", payload);
+      const data = await instance.post("/user/signup", payload);
 
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -24,7 +24,7 @@ export const emailCheckThunk = createAsyncThunk(
   "signup/emailCheck",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get(
+      const data = await instance.get(
         `/user/emailcheck/${payload.email}`,
         payload
       );
