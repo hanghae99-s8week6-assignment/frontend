@@ -16,7 +16,7 @@ export const signUpThunk = createAsyncThunk(
     async(payload, thunkAPI) => {
         try{
             const data = await axios.post(
-                "http://43.200.178.231/api/user/signup", 
+                "/user/signup", 
                 payload
              );
              
@@ -33,7 +33,7 @@ export const emailCheckThunk = createAsyncThunk(
     async(payload, thunkAPI) => {
         try{
             const data = await axios.get(
-                `http://43.200.178.231/api/user/emailcheck/${payload.email}`, 
+                `/user/emailcheck/${payload.email}`, 
                 payload
              );
         return thunkAPI.fulfillWithValue(data.data)        

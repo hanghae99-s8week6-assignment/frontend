@@ -11,7 +11,7 @@ export const loginThunk = createAsyncThunk(
     async(payload, thunkAPI) => {
         try{
             const data = await axios.post(
-                "http://43.200.178.231/api/user/login", 
+                "/user/login", 
                 payload
             );
             localStorage.setItem("user", data.data.token)
@@ -21,7 +21,6 @@ export const loginThunk = createAsyncThunk(
             return thunkAPI.rejectWithValue(error.response.data);
         }
     }
-  }
 );
 
 
@@ -31,7 +30,7 @@ export const userCheckThunk = createAsyncThunk(
         const userData = localStorage.getItem('user')
         try{
             const data = await axios.post(
-                "http://43.200.178.231/api/user/usercheck", 
+                "/user/usercheck", 
                 userData
             );
         return thunkAPI.fulfillWithValue(data.data)

@@ -7,7 +7,7 @@ export const getPostAysnc = createAsyncThunk(
   async (thunkAPI) => {
     try {
       // const res = await axios.get("/api/posts");
-      const res = await axios.get("http://localhost:3001/Posts");
+      const res = await axios.get("/post");
       return res.data;
     } catch (error) {
       console.error(error);
@@ -21,7 +21,7 @@ export const postPostAysnc = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       // const res = await axios.post("/api/post", data);
-      const res = await axios.post("http://localhost:3001/Posts", data, {
+      const res = await axios.post("/post", data, {
         withCredentials: true,
       });
       return res.data;
@@ -37,7 +37,7 @@ export const pickPostAysnc = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       // const res = axios.get("/api/posts");
-      const res = await axios.get("http://localhost:3001/Posts");
+      const res = await axios.get("/post");
       const pick = res.data.find((post) => post.postid === data);
       return pick;
     } catch (error) {
@@ -52,7 +52,7 @@ export const deletePostAysnc = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await axios.delete(
-        `http://localhost:3001/Posts/${payload}`,
+        `/posts/${payload}`,
         payload
       );
       return res.data;

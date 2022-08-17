@@ -49,8 +49,8 @@ const onSubmitHandler = (event) => {
         <h1>Login / Sign-Up Page</h1>
         </div>
         <div className="container">
-        <h3>회원이 아닙니까?</h3> <button className="button1" onClick={()=>navigate('/signup')}>회원가입</button>
-        <h3>이미 회원입니까?</h3>
+        <h3 className="letter">회원이 아닙니까?</h3> <button className="button1" onClick={()=>navigate('/signup')}>SIGN-UP</button>
+        <h3 className="letter">이미 회원입니까?</h3>
         <button className="button2" onClick={onClickLoginForm}>로그인</button>
         {loginForm ? <div>
             <form onSubmit={onSubmitHandler}>
