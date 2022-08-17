@@ -87,7 +87,6 @@ const onClickSubmitHandler = (event) => {
        return navigate('/') 
     }
 };
-console.log(errormessage?.result)
 const [emailCheck, setEmailCheck] = useState(0)
 
 const onClickOverlap = () => {

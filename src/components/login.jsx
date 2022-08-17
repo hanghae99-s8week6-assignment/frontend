@@ -6,11 +6,12 @@ import "../css/login.css";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [loginForm, setLoginForm] = useState(false);
 
-  const onClickLoginForm = () => {
-    setLoginForm((status) => !status);
-  };
+  const Loginerror = useSelector((state)=>
+    state.userLogin
+  );
+  
+  
 
   const [login, setLogin] = useState({
     email: "",
@@ -37,20 +38,21 @@ const Login = () => {
   //로그인 정보 일치/불일치 여부에 따라
 
   const onSubmitHandler = (event) => {
-    event.preventDefault();
-    dispatch(loginThunk(login));
+    dispatch(loginThunk(login))
+    event.preventDefault()
   };
-
+  if (Loginerror?.userLogin?.length > 0) {
+    navigate('/')
+  };
+  
   return (
     <div className="backgroundImg">
       <div className="header">
         <h1>Login / Sign-Up Page</h1>
-        </div>
-        <div className="container">
-        <h3 className="letter">회원이 아닙니까?</h3> <button className="button1" onClick={()=>navigate('/signup')}>SIGN-UP</button>
-        <h3 className="letter">이미 회원입니까?</h3>
-        <button className="button2" onClick={onClickLoginForm}>로그인</button>
-        {loginForm ? <div>
+      </div>
+      <div className="container">
+        <h3>LOGIN</h3>
+          <div>
             <form onSubmit={onSubmitHandler}>
               <p>아이디(e-mail)</p>
               <input
@@ -80,13 +82,16 @@ const Login = () => {
               />
               <p>
                 <button className="button3">로그인</button>
-                <button className="button4" onClick={onClickLoginForm}>
+                <button className="button4" onClick={()=>navigate('/')}>
                   취소
                 </button>
               </p>
             </form>
           </div>
-        ) : null}
+        <h3>회원이 아닙니까?</h3>
+        <button className="button1" onClick={() => navigate("/signup")}>
+          회원가입
+        </button>
       </div>
     </div>
   );
