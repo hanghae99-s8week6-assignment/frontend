@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
-
 const initialState = [];
 
 export const getPostAysnc = createAsyncThunk(
@@ -80,7 +78,7 @@ export const postSlice = createSlice({
         ...state,
       }))
       .addCase(pickPostAysnc.fulfilled, (state, action) => {
-        return (state = action.payload);
+        return state = action.payload;
       });
   },
 });

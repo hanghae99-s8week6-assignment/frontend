@@ -1,22 +1,26 @@
 
-  import styled from "styled-components";
-  import Contents from "../components/Contents";
+import styled from "styled-components";
+import Header from "../components/common/Header";
+import Contents from "../components/Contents";
 
-  function Detail () {
+function Detail () {
 
-    return (
+  return (
+    <>
+      <Header />
       <DetailContainer>
         <Contents />
       </DetailContainer>
-    )
-  }
+    </>
+  )
+}
 
-  const DetailContainer = styled.div`
-    display:block;
+const DetailContainer = styled.div`
+  display:block;
 
-    width:74vw;
-    height: 92vh;
-    margin:1rem auto;
-  `
+  width:74vw;
+  height: 80vh;
+  margin:5rem auto 4rem auto;
+`
 
-  export default Detail;
+export default Detail;

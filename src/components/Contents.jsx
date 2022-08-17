@@ -10,9 +10,9 @@ import { faHeart as RegularHeart } from "@fortawesome/free-regular-svg-icons";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { addCommentData } from "../app/modules/CommentSlice";
-import { deletePostAysnc, getPostAysnc } from "../app/modules/postSlice";
-import { useNavigate, useParams } from "react-router-dom";
-import Gravatar from "react-gravatar";
+import { deletePostAysnc, pickPostAysnc } from "../app/modules/postSlice";
+import { useNavigate, useParams } from "react-router-dom"; 
+import Gravatar from 'react-gravatar';
 
 function Contents() {
   const commentInitialState = {
@@ -25,14 +25,14 @@ function Contents() {
   const [refresh, setRefresh] = useState(false);
   const [liked, setLiked] = useState(false);
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.post);
+  const postData = useSelector((state) => state.posts);
   const { id } = useParams();
   // const user = useSelector(state => state.user);
   // 유저 정보를 받아온다. 해당 정보에는 email과 username이 받아와지도록.
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(getPostAysnc(id));
+  useEffect(()=> {
+    dispatch(pickPostAysnc(Number(id)))
     // 대은 님이 보내주면 해당 값 받아서 바로 dispatch 적용할 수 있도록 함.
     setRefresh(false);
   }, [dispatch, refresh]);
@@ -80,74 +80,77 @@ function Contents() {
     navigate("/");
     // 받아오는 id를 체크해서 글 삭제해주고 main으로 navigate 시켜주도록 함.
   }
+  // if (postData !== null && postData !== undefined) {
+  //   console.log(postData)
+
+  // }
   return (
-    <ContentsContainer state={state}>
-      {state === null ? (
-        <LoadingDiv> 로딩중입니다... </LoadingDiv>
-      ) : (
-        <>
-          <ImageBox>
-            <FontAwesomeIcon
-              style={BackArrow}
-              icon={faArrowLeft}
-              onClick={moveToMain}
-            />
-            <Image src={state.Images} alt="user's hometraining image" />
-          </ImageBox>
-          <ContentsBox>
-            <ProfileBar>
-              <Gravatar
-                style={ProfileImage}
-                default="identicon"
-                email="a-email@example.com"
+    <>
+      <ContentsContainer>
+        {postData === null || postData === undefined || postData.length === 0 ? (
+          <LoadingDiv> 로딩중입니다... </LoadingDiv>
+        ) : (
+          <>
+            <ImageBox>
+              <FontAwesomeIcon
+                style={BackArrow}
+                icon={faArrowLeft}
+                onClick={moveToMain}
               />
-              <ProfileUserName>{state.userName}</ProfileUserName>
-              {liked ? (
-                <LikedButton onClick={clickToLiked}>
-                  <FontAwesomeIcon icon={SolidHeart} style={likedStyleSet} />
-                </LikedButton>
-              ) : (
-                <LikedButton onClick={clickToLiked}>
-                  <FontAwesomeIcon icon={RegularHeart} style={likedStyleSet} />
-                </LikedButton>
-              )}
-              <LikedCounter>{state.liked}</LikedCounter>
-              {/* email 주소 받아와줌으로서 체크할 수 있도록 함. */}
-            </ProfileBar>
-            <Substance>
-              <h3>{state.title}</h3>
-              <p>
-                {state.body} Lorem ipsum dolor sit amet consectetur adipisicing
-                elit. Obcaecati consequatur repudiandae eius accusantium ullam
-                temporibus atque laboriosam quo earum voluptate fuga reiciendis
-                officia commodi, maiores rerum magnam et labore sit.{" "}
-              </p>
-            </Substance>
-            <ButtonBox>
-              <DeleteBtn onClick={deletePost}>
-                <FontAwesomeIcon icon={faXmark} />
-              </DeleteBtn>
-              {/* 유저 이름 같을 때 나오게 하고, 아니면 출력 삭제. */}
-            </ButtonBox>
-            <Reply setRefresh={setRefresh} />
-            <InputBox onSubmit={submitComment}>
-              <CommentInput
-                onChange={changeComment}
-                value={comment.content}
-                placeholder="댓글 달기..."
-              />
-              <CommentBtn
-                color={comment.content.length !== 0 ? "#274C77" : "#A3CEF1"}
-                cursor={comment.content.length !== 0 ? "pointer" : "arrow"}
-                type="submit"
-              >
-                게시
-              </CommentBtn>
-            </InputBox>
-          </ContentsBox>
-        </>
-      )}
-    </ContentsContainer>
+              <Image src={postData.Images[0].src} alt="user's hometraining image" />
+            </ImageBox>
+            <ContentsBox>
+              <ProfileBar>
+                <Gravatar
+                  style={ProfileImage}
+                  default="identicon"
+                  email="a-email@example.com"
+                />
+                <ProfileUserName>{postData.userName}</ProfileUserName>
+                {liked ? (
+                  <LikedButton onClick={clickToLiked}>
+                    <FontAwesomeIcon icon={SolidHeart} style={likedStyleSet} />
+                  </LikedButton>
+                ) : (
+                  <LikedButton onClick={clickToLiked}>
+                    <FontAwesomeIcon icon={RegularHeart} style={likedStyleSet} />
+                  </LikedButton>
+                )}
+                <LikedCounter>{postData.liked}</LikedCounter>
+                {/* email 주소 받아와줌으로서 체크할 수 있도록 함. */}
+              </ProfileBar>
+              <Substance>
+                <h3>{postData.title}</h3>
+                <p>
+                  {postData.body}
+                </p>
+              </Substance>
+              <ButtonBox>
+                <DeleteBtn onClick={deletePost}>
+                  <FontAwesomeIcon icon={faXmark} />
+                </DeleteBtn>
+                {/* 유저 이름 같을 때 나오게 하고, 아니면 출력 삭제. */}
+              </ButtonBox>
+              <Reply setRefresh={setRefresh} />
+              <InputBox onSubmit={submitComment}>
+                <CommentInput
+                  onChange={changeComment}
+                  value={comment.content}
+                  placeholder="댓글 달기..."
+                />
+                <CommentBtn
+                  color={comment.content.length !== 0 ? "#274C77" : "#A3CEF1"}
+                  cursor={comment.content.length !== 0 ? "pointer" : "arrow"}
+                  type="submit"
+                >
+                  게시
+                </CommentBtn>
+              </InputBox>
+            </ContentsBox>
+          </>
+        )}
+      </ContentsContainer>
+    </>
   );
 }
 
@@ -159,7 +162,7 @@ const ContentsContainer = styled.div`
 
   position: relative;
 
-  height: 90vh;
+  height: 70vh;
 
   box-sizing: border-box;
   box-shadow: 0 20px 30px 0 #121212;
@@ -237,7 +240,7 @@ const Substance = styled.div`
 
   margin: 1rem;
   padding: 0 1rem;
-  height: 38.5vh;
+  height: 36vh;
 
   overflow: scroll;
   box-sizing: border-box;
@@ -269,6 +272,7 @@ const DeleteBtn = styled.button`
 const InputBox = styled.form`
   display: flex;
   flex-direction: row;
+  align-items: center;
 
   border-top: 2px solid #000000;
 

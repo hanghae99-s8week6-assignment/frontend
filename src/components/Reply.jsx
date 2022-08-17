@@ -57,14 +57,14 @@ const ReplyContainer = styled.div`
   margin: 0 1rem;
   padding: 0 1rem;
 
-  height: 36vh;
+  height: 30vh;
   overflow: scroll;
 `
 
 const GuideText = styled.div`
   font-size: 1.6rem;
   color: #000000;
-  margin: 6rem auto;
+  margin: 5rem auto;
 `
 
 const ReplyList = styled.div`
