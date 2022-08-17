@@ -64,3 +64,20 @@ export const Line = styled.hr`
   width: 100%;
   size: 1px;
 `;
+
+export const ProfileImage = {
+  width: "45px",
+  height: "45px",
+
+  border: "2px solid #274C77",
+  borderRadius: "30px",
+};
+
+export const Profile = styled.div`
+  display: flex;
+  font-size: 20px;
+  & > div {
+    line-height: 50px;
+    margin: 0 10px;
+  }
+`;

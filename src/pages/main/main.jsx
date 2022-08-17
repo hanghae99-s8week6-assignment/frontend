@@ -19,14 +19,11 @@ function Main() {
 
   const dispatch = useDispatch();
   const Posts = useSelector((state) => state.posts.data?.Post);
-  const userData = useSelector((state) => state.userLogin.userLogin);
-  console.log(Posts);
+  const userData = useSelector((state) => state.userLogin?.userLogin[0]);
 
   const liked = Posts?.slice()
     .sort((a, b) => b.liked - a.liked)
     .slice(0, 10);
-
-  console.log("liked:", liked);
 
   useEffect(() => {
     dispatch(getPostAysnc());
@@ -48,7 +45,7 @@ function Main() {
         <BodyWrapper>
           <HeadWrap>
             <h3>최근 올라온 게시글이에요!</h3>
-            {userData.length ? (
+            {userData?.email ? (
               <WriteButton onClick={onShowWriteModal}>글쓰기</WriteButton>
             ) : null}
           </HeadWrap>
@@ -65,8 +62,12 @@ function Main() {
                         alt={post.title}
                       />
                     )}
-                    <span>유저닉네임</span>
-                    <div>{post.title}</div>
+                    <span>{post?.userName}</span>
+                    {post.title.length < 14 ? (
+                      <div>{post.title}</div>
+                    ) : (
+                      <div>{post.title.slice(0, 12)} ...</div>
+                    )}
                   </Cards>
                 </LinkTo>
               );
@@ -88,8 +89,13 @@ function Main() {
                         alt={post.title}
                       />
                     )}
-                    <span>유저닉네임</span>
-                    <div>{post.title}</div>
+                    <span>{post?.userName}</span>
+
+                    {post.title.length < 14 ? (
+                      <div>{post.title}</div>
+                    ) : (
+                      <div>{post.title.slice(0, 12)} ...</div>
+                    )}
                   </Cards>
                 </LinkTo>
               );
