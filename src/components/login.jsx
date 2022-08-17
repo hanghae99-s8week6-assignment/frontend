@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "../app/modules/LoginSlice";
+import "../css/login.css"
 
 const Login = () => {
 
@@ -42,30 +43,31 @@ const onSubmitHandler = (event) => {
 };
 
     return (
-        <div>
-        <h1>메인페이지가 될겁니다</h1>
-        <h3>회원이 아닙니까? 회원가입하러 가기</h3>
-        <button onClick={() => {
-            navigate("/signup")
-        }}>회원가입</button>
-        <h3>이미 회원입니까? 로그인하러 가기</h3>
-        <button onClick={onClickLoginForm}>로그인</button>
+        <div className="backgroundImg">
+        <div className="header">
+        <h1>Login / Sign-Up Page</h1>
+        </div>
+        <div className="container">
+        <h3>회원이 아닙니까?</h3> <button className="button1" onClick={()=>navigate('/signup')}>회원가입</button>
+        <h3>이미 회원입니까?</h3>
+        <button className="button2" onClick={onClickLoginForm}>로그인</button>
         {loginForm ? <div>
             <form onSubmit={onSubmitHandler}>
             <p>아이디(e-mail)</p>
-            <input onFocus={onFocusEmailValid} onBlur={onBlurEmailValid} onChange={onChangeHandler} name="email" type="text"/>
+            <input className="loginInputs" onFocus={onFocusEmailValid} onBlur={onBlurEmailValid} onChange={onChangeHandler} name="email" type="text"/>
             {(emailValid === true) && (login.email.match(emailRegEx) === null) ? <p className="incorrect">&#10006;올바른 이메일 형식이 아닙니다</p>
                 : (emailValid === false) && (login.email.match(emailRegEx) === null) ? <p className="incorrect">&#10006;올바른 이메일 형식이 아닙니다</p>
                 : null
             }
             <p>패스워드</p>
-            <input onChange={onChangeHandler} name="password" type="password"/>
+            <input className="loginInputs" onChange={onChangeHandler} name="password" type="password"/>
             <p>
-            <button>로그인</button>
-            <button onClick={onClickLoginForm}>취소</button>
+            <button className="button3">로그인</button>
+            <button className="button4" onClick={onClickLoginForm}>취소</button>
             </p>
             </form>
             </div> : null}
+            </div>
         </div>
     )
 };
