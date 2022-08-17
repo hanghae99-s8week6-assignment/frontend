@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "../app/modules/LoginSlice";
 import "../css/login.css";
+import {toast, ToastContainer, Bounce} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
+  
   const dispatch = useDispatch();
 
   const Loginerror = useSelector((state)=>
@@ -38,12 +41,20 @@ const Login = () => {
   //로그인 정보 일치/불일치 여부에 따라
 
   const onSubmitHandler = (event) => {
-    dispatch(loginThunk(login))
-    event.preventDefault()
+    dispatch(loginThunk(login));
+    event.preventDefault();
+    if ((Loginerror.error === null) || (Loginerror.error?.result === false)){
+      toast.error('이메일 또는 패스워드가 일치하지 않습니다.', {
+        autoClose: 3000,
+        position: toast.POSITION.TOP_RIGHT
+      });
+    };
+  
   };
   if (Loginerror?.userLogin?.length > 0) {
     navigate('/')
   };
+
   
   return (
     <div className="backgroundImg">
@@ -86,6 +97,7 @@ const Login = () => {
                   취소
                 </button>
               </p>
+              <ToastContainer/>
             </form>
           </div>
         <h3>회원이 아닙니까?</h3>

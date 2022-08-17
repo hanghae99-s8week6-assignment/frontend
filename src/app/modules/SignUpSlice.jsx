@@ -41,7 +41,7 @@ export const signUpSlice = createSlice({
   reducers: {},
   extraReducers: {
     [signUpThunk.fulfilled]: (state, action) => {
-      return alert("회원가입에 성공하였습니다.");
+      return alert("회원가입에 성공하였습니다."), { ...state, error: action.payload };
     },
     [signUpThunk.rejected]: (state, action) => {
       return alert(action.payload.error), { ...state, error: action.payload };
@@ -54,6 +54,7 @@ export const signUpSlice = createSlice({
     },
   },
 });
+
 
 export const {} = signUpSlice.actions;
 export default signUpSlice.reducer;

@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { emailCheckThunk, signUpThunk } from "../app/modules/SignUpSlice";
 import { useNavigate } from "react-router-dom";
 import "../css/signup.css"
+import {toast, ToastContainer, Bounce} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const SignUp = () => {
@@ -76,25 +78,22 @@ const [passwordCheckValid, setPasswordCheckValid] = useState();
 //모든 것이 채워졌을 때만 제출    
 const onClickSubmitHandler = (event) => {
     event.preventDefault();
-    dispatch(signUpThunk(signUpInfo))
-    if((signUpInfo.userName.match(userNameRegEx) !== null)
-    && (signUpInfo.password.match(passwordRegEx) !== null)
-    && (signUpInfo.password === signUpInfo.passwordCheck)
-    && (signUpInfo.email.match(emailRegEx) !== null )
-    && (emailCheck >= 1)
-    )
-    {
-       return navigate('/') 
-    }
-};
+    dispatch(signUpThunk(signUpInfo));
+
+      };
+    
+
 const [emailCheck, setEmailCheck] = useState(0)
 
 const onClickOverlap = () => {
     dispatch(emailCheckThunk(signUpInfo));
-    setEmailCheck(emailCheck + 1)
-    
-};
+    setEmailCheck(emailCheck + 1);
 
+    };
+    
+if(errormessage?.result === true && errormessage?.message?.length !== 13 ){
+    navigate('/')
+}
 
 //뷰
     return (
@@ -137,10 +136,11 @@ const onClickOverlap = () => {
                 : null
                         }
             </section>
+            <ToastContainer/>
         <div className="makeItRow">
         <button className="signUpButton" onClick={onClickSubmitHandler} >회원가입</button>
         <button className="signUpButton" onClick={()=>{
-            navigate("/")
+            navigate("/login")
         }}>취소</button>
         </div>
         </div>
