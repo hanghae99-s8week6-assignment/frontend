@@ -35,11 +35,9 @@ export const userCheckThunk = createAsyncThunk(
 export const logoutAsync = createAsyncThunk("user/logout", async (thunkAPI) => {
   try {
     const res = await instance.get("/user/logout");
-    console.log(res.data);
+
     return res.data;
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) {}
 });
 
 export const loginSlice = createSlice({
@@ -48,17 +46,15 @@ export const loginSlice = createSlice({
   reducers: {},
   extraReducers: {
     [loginThunk.fulfilled]: (state, action) => {
-      state.userLogin.push(action.payload)
+      state.userLogin.push(action.payload);
     },
     [loginThunk.rejected]: (state, action) => {
-      return console.log(action.payload.error), { ...state, error: action.payload };
+      return { ...state, error: action.payload };
     },
     [userCheckThunk.fulfilled]: (state, { payload }) => {
       return { ...state, userLogin: [...state.userLogin, payload] };
     },
-    [userCheckThunk.rejected]: (state, action) => {
-      console.log(action.payload);
-    },
+    [userCheckThunk.rejected]: (state, action) => {},
   },
 });
 

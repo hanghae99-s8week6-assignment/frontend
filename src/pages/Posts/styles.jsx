@@ -38,13 +38,15 @@ export const CardImage = styled.img`
 `;
 
 export const CardText = styled.div`
+  display: flex;
+  flex-direction: column;
   & > div {
     &:first-child {
       font-size: 16px;
       margin-bottom: 2.4em;
     }
     &:last-child {
-      font-size: 30px;
+      font-size: 22px;
     }
   }
 `;
