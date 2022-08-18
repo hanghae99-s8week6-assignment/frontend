@@ -44,10 +44,10 @@ const Posts = () => {
                 <Card>
                   <CardText>
                     <div>{post.userName}</div>
-                    {post.title.length < 12 ? (
+                    {post.title.length < 7 ? (
                       <div>{post.title}</div>
                     ) : (
-                      <div>{post.title?.slice(0, 11)}...</div>
+                      <div>{post.title?.slice(0, 6)}...</div>
                     )}
                   </CardText>
                   {post.Images ? (

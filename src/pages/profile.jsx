@@ -7,12 +7,10 @@ import { getPostAysnc } from "../app/modules/postSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-
-function  Profile () {
+function Profile() {
   const userData = useSelector((state) => state.userLogin?.userLogin[0]);
   const postData = useSelector((state) => state.posts.data);
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,61 +18,90 @@ function  Profile () {
   }, [dispatch]);
 
   const moveToDetailPage = (event) => {
-    navigate(`/detail/${postData.postId}`)
-  }
-
+    navigate(`/detail/${postData.postId}`);
+  };
 
   return (
     <>
-    <Header />
-    <ProfileContainer>
-      <ProfileBox>
-
-        {userData === undefined || userData === null ? <div>로딩중입니다..</div> : <>
-        <Gravatar style={ProfileImage} default="identicon" email={userData.email} />
-        <ProfileUserName>{userData.userName}</ProfileUserName>
-        <ProfileEmail>{userData.email}</ProfileEmail></>}
-
-      </ProfileBox>
-      <WritingBox>
-        <SeriesInfoText>최근 올린 포스트</SeriesInfoText>
-        <SeriesCardList>
-          {postData === undefined || postData.length === 0 ?
-            <div>로딩중입니다...</div> :
-            postData.Post.filter(elem => elem.email === userData.email)
+      <Header />
+      <ProfileContainer>
+        <ProfileBox>
+          {userData === undefined || userData === null ? (
+            <div>로딩중입니다..</div>
+          ) : (
+            <>
+              <Gravatar
+                style={ProfileImage}
+                default="identicon"
+                email={userData.email}
+              />
+              <ProfileUserName>{userData.userName}</ProfileUserName>
+              <ProfileEmail>{userData.email}</ProfileEmail>
+            </>
+          )}
+        </ProfileBox>
+        <WritingBox>
+          <SeriesInfoText>최근 올린 포스트</SeriesInfoText>
+          <SeriesCardList>
+            {postData === undefined || postData.length === 0 ? (
+              <div>로딩중입니다...</div>
+            ) : (
+              postData.Post.filter((elem) => elem.email === userData.email)
                 .sort((a, b) => b.liked - a.liked)
-                  .map(elem => 
-              <SeriesCard onClick={moveToDetailPage}>
-                <SeriesImageBox>
-                  <SeriesImage src={elem.Images === "" ? "https://images.unsplash.com/photo-1591311630200-ffa9120a540f" : elem.Images} alt="Home traning Image" />
-                </SeriesImageBox>
-                <SeriesTextBox>
-                  <TextBoxTitle>{elem.title}</TextBoxTitle>
-                  <TextBoxUserName>{elem.userName}</TextBoxUserName>
-                </SeriesTextBox>
-              </SeriesCard>)}
-        </SeriesCardList>
-        <SeriesInfoText>좋아요 많이 받은 포스트</SeriesInfoText>
+                .map((elem) => (
+                  <SeriesCard onClick={moveToDetailPage}>
+                    <SeriesImageBox>
+                      <SeriesImage
+                        src={
+                          elem.Images === ""
+                            ? "https://images.unsplash.com/photo-1591311630200-ffa9120a540f"
+                            : elem.Images
+                        }
+                        alt="Home traning Image"
+                      />
+                    </SeriesImageBox>
+                    <SeriesTextBox>
+                      <TextBoxTitle>{elem.title}</TextBoxTitle>
+                      <TextBoxUserName>{elem.userName}</TextBoxUserName>
+                    </SeriesTextBox>
+                  </SeriesCard>
+                ))
+            )}
+          </SeriesCardList>
+          <SeriesInfoText>좋아요 많이 받은 포스트</SeriesInfoText>
 
-        <SeriesCardList>
-          {postData === undefined || postData.length === 0 || userData === undefined ?
-            <div>로딩중입니다...</div> :
-            postData.Post.filter(elem => elem.email === userData.email).map(elem => 
-              <SeriesCard onClick={moveToDetailPage}>
-                <SeriesImageBox>
-                  <SeriesImage src={elem.Images === "" ? "https://images.unsplash.com/photo-1591311630200-ffa9120a540f" : elem.Images} alt="Home traning Image" />
-                </SeriesImageBox>
-                <SeriesTextBox>
-                  <TextBoxTitle>{elem.title}</TextBoxTitle>
-                  <TextBoxUserName>{elem.userName}</TextBoxUserName>
-                </SeriesTextBox>
-              </SeriesCard>)}
-        </SeriesCardList>
-      </WritingBox>
-    </ProfileContainer>
+          <SeriesCardList>
+            {postData === undefined ||
+            postData.length === 0 ||
+            userData === undefined ? (
+              <div>로딩중입니다...</div>
+            ) : (
+              postData.Post.filter((elem) => elem.email === userData.email).map(
+                (elem) => (
+                  <SeriesCard onClick={moveToDetailPage}>
+                    <SeriesImageBox>
+                      <SeriesImage
+                        src={
+                          elem.Images === ""
+                            ? "https://images.unsplash.com/photo-1591311630200-ffa9120a540f"
+                            : elem.Images
+                        }
+                        alt="Home traning Image"
+                      />
+                    </SeriesImageBox>
+                    <SeriesTextBox>
+                      <TextBoxTitle>{elem.title}</TextBoxTitle>
+                      <TextBoxUserName>{elem.userName}</TextBoxUserName>
+                    </SeriesTextBox>
+                  </SeriesCard>
+                )
+              )
+            )}
+          </SeriesCardList>
+        </WritingBox>
+      </ProfileContainer>
     </>
-  )
-
+  );
 }
 
 const ProfileContainer = styled.div`
@@ -82,12 +109,9 @@ const ProfileContainer = styled.div`
   grid-template-columns: 1fr 1.8fr;
   justify-content: center;
 
-
-  margin:auto;
-  margin-top:7rem;
-  
-`
-
+  margin: auto;
+  margin-top: 7rem;
+`;
 
 const ProfileBox = styled.div`
   background: #e7ecef;
