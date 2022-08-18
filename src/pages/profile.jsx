@@ -18,7 +18,7 @@ function Profile() {
   }, [dispatch]);
 
   const moveToDetailPage = (event) => {
-    navigate(`/detail/${postData.postId}`);
+    navigate(`/detail/${Number(event.target.value)}`);
   };
 
   return (
@@ -49,16 +49,10 @@ function Profile() {
               postData.Post.filter((elem) => elem.email === userData.email)
                 .sort((a, b) => b.liked - a.liked)
                 .map((elem) => (
-                  <SeriesCard onClick={moveToDetailPage}>
+                  <SeriesCard value={elem.postId} onClick={moveToDetailPage}>
                     <SeriesImageBox>
-                      <SeriesImage
-                        src={
-                          elem.Images === ""
-                            ? "https://images.unsplash.com/photo-1591311630200-ffa9120a540f"
-                            : elem.Images
-                        }
-                        alt="Home traning Image"
-                      />
+                    {elem.Images === null ? <SeriesImage src="https://images.unsplash.com/photo-1591311630200-ffa9120a540f" alt="Home traning Image"/> :
+                      <SeriesImage src={elem.Images} alt="Home traning Image"/>}
                     </SeriesImageBox>
                     <SeriesTextBox>
                       <TextBoxTitle>{elem.title}</TextBoxTitle>
@@ -77,24 +71,18 @@ function Profile() {
               <div>로딩중입니다...</div>
             ) : (
               postData.Post.filter((elem) => elem.email === userData.email).map(
-                (elem) => (
-                  <SeriesCard onClick={moveToDetailPage}>
+                (elem) => {
+                  return <SeriesCard onClick={moveToDetailPage}>
                     <SeriesImageBox>
-                      <SeriesImage
-                        src={
-                          elem.Images === ""
-                            ? "https://images.unsplash.com/photo-1591311630200-ffa9120a540f"
-                            : elem.Images
-                        }
-                        alt="Home traning Image"
-                      />
+                      {elem.Images === null ? <SeriesImage src="https://images.unsplash.com/photo-1591311630200-ffa9120a540f" alt="Home traning Image"/> :
+                      <SeriesImage src={elem.Images} alt="Home traning Image"/>}
                     </SeriesImageBox>
                     <SeriesTextBox>
                       <TextBoxTitle>{elem.title}</TextBoxTitle>
                       <TextBoxUserName>{elem.userName}</TextBoxUserName>
                     </SeriesTextBox>
                   </SeriesCard>
-                )
+                }
               )
             )}
           </SeriesCardList>
@@ -207,10 +195,12 @@ const SeriesImageBox = styled.div`
   border-radius: 10px 10px 0 0;
 
   height: 25vh;
+  overflow: hidden;
 `;
 
 const SeriesImage = styled.img`
   width: 100%;
+  overflow: hidden;
 `;
 
 const SeriesTextBox = styled.div`

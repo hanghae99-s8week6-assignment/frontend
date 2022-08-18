@@ -74,13 +74,13 @@ const PostModal = ({ setShowWriteModal }) => {
         ReactS3Client.uploadFile(file, newFileName).then((data) => {
           if (data.status === 204) {
             let imgUrl = data.location;
-            dispatch(postPostAysnc({ title, body, Images: imgUrl }));
+            dispatch(postPostAysnc({ title, content: body, Images: imgUrl }));
             setLoading(false);
           }
         });
       } else {
-        setLoading(true);
-        dispatch(postPostAysnc({ title, body }));
+        dispatch(postPostAysnc({ title, content: body }));
+        setLoading(false);
       }
     },
     [title, body, fileUrl]

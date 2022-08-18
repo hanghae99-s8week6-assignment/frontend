@@ -33,7 +33,7 @@ function Main() {
 
   const liked = Posts?.slice()
     .sort((a, b) => b.liked - a.liked)
-    .slice(0, 10);
+    .slice(0, 12);
   const latesd = Posts?.slice(0, 24);
 
   const topPrevSlide = () => {
@@ -48,7 +48,6 @@ function Main() {
   const botPnextSlide2 = () => {
     if (botslidePx > -1632) setBotSlidePx(botslidePx - 1632);
   };
-
 
   const onShowWriteModal = useCallback(() => {
     setShowWriteModal(true);
