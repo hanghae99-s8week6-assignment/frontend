@@ -4,6 +4,7 @@ export const CreateMenu = styled.div`
   position: fixed;
   top: 60px;
   right: 200px;
+  background-color: #f8f8f8;
   z-index: 1000;
 
   & > div {

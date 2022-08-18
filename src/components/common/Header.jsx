@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from "react";
 import {
   HeaderWrapper,
+  RightMenu,
   ProfileModal,
   LogOutButton,
   LinkProfile,
@@ -13,9 +14,11 @@ import Menu from "../Menu/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { userCheckThunk } from "../../app/modules/LoginSlice";
 import Gravatar from "react-gravatar";
+import LogOutModal from "../LogOutModal/LogOutModal";
 
 const Header = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showLogOutModal, setShowLogOutModal] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -32,19 +35,31 @@ const Header = () => {
 
   const onCloseModal = useCallback(() => {
     setShowUserMenu(false);
+    setShowLogOutModal(false);
   }, []);
+  const onShowLogOutModal = useCallback(() => {
+    setShowLogOutModal(true);
+  }, []);
+  // const onLogOut = useCallback(() => {
+  //   dispatch(logoutAsync());
+  //   localStorage.removeItem("user");
+  //   window.location.reload();
+  // }, []);
 
-  const onLogOut = useCallback(() => {}, []);
   return (
-    <div>
+    <>
       <HeaderWrapper>
-        <LinkTo to="/">프로젝트 홈트</LinkTo>
+        <RightMenu>
+          <LinkTo to="/">프로젝트 홈트</LinkTo>
+          <div></div>
+          <LinkTo to="/posts">전체 게시글</LinkTo>
+        </RightMenu>
         {userData ? (
           <Profile onClick={onClickUserProfile}>
             <Gravatar
               style={ProfileImage}
               default="identicon"
-              email="a-email@example.com"
+              email={userData.email}
             />
             <div>{userData.userName}</div>
           </Profile>
@@ -55,17 +70,25 @@ const Header = () => {
           <Menu show={showUserMenu} onCloseModal={onCloseModal}>
             <ProfileModal>
               <div>
-                <LinkProfile to={"/"} id="profile-menu">
+                <LinkProfile to={"/profile"} id="profile-menu">
                   내 프로필
                 </LinkProfile>
                 <Line />
-                <LogOutButton onClick={onLogOut}>로그아웃</LogOutButton>
+                <LogOutButton onClick={onShowLogOutModal}>
+                  로그아웃
+                </LogOutButton>
               </div>
             </ProfileModal>
           </Menu>
         )}
       </HeaderWrapper>
-    </div>
+      {showLogOutModal && (
+        <LogOutModal
+          setShowLogOutModal={setShowLogOutModal}
+          onCloseModal={onCloseModal}
+        />
+      )}
+    </>
   );
 };
 

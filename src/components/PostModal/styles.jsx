@@ -46,7 +46,7 @@ export const ImageInput = styled.input`
 export const TextArea = styled.textarea`
   width: 96.5%;
   resize: none;
-  height: 300px;
+  height: 280px;
   padding: 12px;
   font-size: 16px;
   margin-bottom: 10px;
@@ -88,8 +88,8 @@ export const Button = styled.button`
 
 export const Spinner = styled.div`
   position: absolute;
-  height: 100vh;
-  width: 100vw;
+  height: 50vh;
+  width: 57rem;
   top: 0;
   right: 0;
   bottom: 0;
@@ -105,4 +105,12 @@ export const Spinner = styled.div`
 export const LoadingText = styled.div`
   font-size: 24px;
   text-align: center;
+`;
+
+export const Error = styled.div`
+  color: red;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 5px;
 `;

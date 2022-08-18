@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Reply from "./Reply";
@@ -11,9 +12,11 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { addCommentData, getCommentData } from "../app/modules/CommentSlice";
 import { deletePostAysnc, pickPostAysnc } from "../app/modules/postSlice";
+
 import { getLikedFetch, toggleLikedFetch } from "../app/modules/likedSlice";
 import { useNavigate, useParams } from "react-router-dom"; 
 import Gravatar from 'react-gravatar';
+
 
 function Contents() {
   const commentInitialState = {
@@ -32,6 +35,7 @@ function Contents() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
+
 
   useEffect(()=> {
     dispatch(pickPostAysnc(Number(id)))
@@ -99,7 +103,9 @@ function Contents() {
   return (
     <>
       <ContentsContainer>
-        {postData === null || postData === undefined || postData.length === 0 ? (
+        {postData === null ||
+        postData === undefined ||
+        postData.length === 0 ? (
           <LoadingDiv> 로딩중입니다... </LoadingDiv>
         ) : (
           <>
@@ -125,7 +131,10 @@ function Contents() {
                   </LikedButton>
                 ) : (
                   <LikedButton onClick={clickToLiked}>
-                    <FontAwesomeIcon icon={RegularHeart} style={likedStyleSet} />
+                    <FontAwesomeIcon
+                      icon={RegularHeart}
+                      style={likedStyleSet}
+                    />
                   </LikedButton>
                 )}
                 <LikedCounter>{postData.liked}</LikedCounter>
@@ -133,6 +142,7 @@ function Contents() {
               </ProfileBar>
               <Substance>
                 <h3>{postData.title}</h3>
+
                 <p>
                   {postData.content}
                 </p>

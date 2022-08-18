@@ -9,7 +9,7 @@ const Modal = ({ children, show, onCloseModal }) => {
     return null;
   }
   return (
-    <WriteModal onClick={onCloseModal}>
+    <WriteModal>
       <div onClick={stopPropagation}>
         <CloseModalButton onClick={onCloseModal}>&times;</CloseModalButton>
         {children}
