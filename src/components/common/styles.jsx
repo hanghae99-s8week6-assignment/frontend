@@ -20,6 +20,20 @@ export const HeaderWrapper = styled.div`
 export const LinkTo = styled(Link)`
   text-decoration: none;
   color: white;
+  padding-top: 3px;
+  &:first-child {
+    font-size: 18px;
+  }
+  &:last-child {
+    font-size: 15px;
+    padding-top: 5px;
+  }
+`;
+
+export const RightMenu = styled.div`
+  display: flex;
+  gap: 16px;
+  font-size: 16px;
 `;
 
 export const ProfileImg = styled.img`
@@ -31,9 +45,10 @@ export const ProfileImg = styled.img`
 `;
 
 export const ProfileModal = styled.div`
+  border-radius: 6px;
   display: flex;
   padding: 15px;
-  background-color: white;
+  background-color: #f8f8f8;
   & img {
     display: flex;
   }
@@ -75,6 +90,7 @@ export const ProfileImage = {
 
 export const Profile = styled.div`
   display: flex;
+  cursor: pointer;
   font-size: 20px;
   & > div {
     line-height: 50px;

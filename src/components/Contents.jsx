@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Reply from "./Reply";
@@ -11,8 +12,8 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { addCommentData } from "../app/modules/CommentSlice";
 import { deletePostAysnc, pickPostAysnc } from "../app/modules/postSlice";
-import { useNavigate, useParams } from "react-router-dom"; 
-import Gravatar from 'react-gravatar';
+import { useNavigate, useParams } from "react-router-dom";
+import Gravatar from "react-gravatar";
 
 function Contents() {
   const commentInitialState = {
@@ -31,8 +32,8 @@ function Contents() {
   // 유저 정보를 받아온다. 해당 정보에는 email과 username이 받아와지도록.
   const navigate = useNavigate();
 
-  useEffect(()=> {
-    dispatch(pickPostAysnc(Number(id)))
+  useEffect(() => {
+    dispatch(pickPostAysnc(Number(id)));
     // 대은 님이 보내주면 해당 값 받아서 바로 dispatch 적용할 수 있도록 함.
     setRefresh(false);
   }, [dispatch, refresh]);
@@ -87,7 +88,9 @@ function Contents() {
   return (
     <>
       <ContentsContainer>
-        {postData === null || postData === undefined || postData.length === 0 ? (
+        {postData === null ||
+        postData === undefined ||
+        postData.length === 0 ? (
           <LoadingDiv> 로딩중입니다... </LoadingDiv>
         ) : (
           <>
@@ -113,7 +116,10 @@ function Contents() {
                   </LikedButton>
                 ) : (
                   <LikedButton onClick={clickToLiked}>
-                    <FontAwesomeIcon icon={RegularHeart} style={likedStyleSet} />
+                    <FontAwesomeIcon
+                      icon={RegularHeart}
+                      style={likedStyleSet}
+                    />
                   </LikedButton>
                 )}
                 <LikedCounter>{postData.liked}</LikedCounter>
@@ -121,9 +127,7 @@ function Contents() {
               </ProfileBar>
               <Substance>
                 <h3>{postData.title}</h3>
-                <p>
-                  {postData.body}
-                </p>
+                <p>{postData.body}</p>
               </Substance>
               <ButtonBox>
                 <DeleteBtn onClick={deletePost}>

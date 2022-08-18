@@ -20,7 +20,7 @@ export const WriteModal = styled.div`
     border-radius: 6px;
     user-select: none;
     padding: 30px 40px 0;
-    z-index: 1012;
+    z-index: 100;
     position: relative;
   }
 `;
