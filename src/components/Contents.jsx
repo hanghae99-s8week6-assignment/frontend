@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Reply from "./Reply";
@@ -10,8 +9,9 @@ import {
 import { faHeart as RegularHeart } from "@fortawesome/free-regular-svg-icons";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { addCommentData } from "../app/modules/CommentSlice";
+import { addCommentData, getCommentData } from "../app/modules/CommentSlice";
 import { deletePostAysnc, pickPostAysnc } from "../app/modules/postSlice";
+import { getLikedFetch, toggleLikedFetch } from "../app/modules/likedSlice";
 import { useNavigate, useParams } from "react-router-dom"; 
 import Gravatar from 'react-gravatar';
 
@@ -26,17 +26,27 @@ function Contents() {
   const [refresh, setRefresh] = useState(false);
   const [liked, setLiked] = useState(false);
   const dispatch = useDispatch();
-  const postData = useSelector((state) => state.posts);
   const { id } = useParams();
-  // const user = useSelector(state => state.user);
-  // 유저 정보를 받아온다. 해당 정보에는 email과 username이 받아와지도록.
   const navigate = useNavigate();
+
+  const userData = useSelector((state) => state.userLogin?.userLogin[0]);
+  const postData = useSelector((state) => state.posts);
+  const commentData = useSelector((state) => state.comment);
+  const likedCheck = useSelector((state) => state.liked);
 
   useEffect(()=> {
     dispatch(pickPostAysnc(Number(id)))
-    // 대은 님이 보내주면 해당 값 받아서 바로 dispatch 적용할 수 있도록 함.
     setRefresh(false);
   }, [dispatch, refresh]);
+
+  useEffect(()=> {
+    dispatch(getCommentData(Number(id)))
+  },[dispatch])
+
+  useEffect(() => {
+    if (userData !== undefined && userData !== null)
+      dispatch(getLikedFetch(userData.email));
+  },[dispatch])
 
   function changeComment(event) {
     setComment({ ...comment, content: event.target.value });
@@ -44,25 +54,32 @@ function Contents() {
 
   function submitComment(event) {
     event.preventDefault();
-    if (comment.content.length === 0) return;
-    dispatch(
-      addCommentData({
-        ...comment,
-        userName: "유저 이름",
-        email: "이메일",
-      })
-    );
+    if (comment.content.length === 0)
+      return;
+
+    const CommentData = {
+      postId: postData.postId,
+      comment:{...comment, userName: userData.userName, email: userData.email}
+    }
+
+    dispatch(addCommentData(CommentData));
     setRefresh(true);
     setComment(commentInitialState);
   }
 
-  function moveToMain() {
-    navigate("/");
+  function moveToPrev() {
+    navigate(-1);
   }
 
   function clickToLiked(event) {
-    // dispatch(addLikedFetch(email))
-    setLiked(!liked);
+    const payload = {
+      postId: postData.postId,
+      email:userData.email,
+      isClick: (!likedCheck.isClick)
+    }
+    dispatch(toggleLikedFetch(payload))
+    setRefresh(true);
+    setLiked(!liked)
     // liked = 사람들이 좋아요 누른 횟수.
     // result = 정상적으로 숫자를 포함했는가..
     // 그러면 내가 이 글에 좋아요 찍었습니다 체크하는 게 어디려나..? 저 위의 post와는 다를려나?
@@ -81,10 +98,8 @@ function Contents() {
     navigate("/");
     // 받아오는 id를 체크해서 글 삭제해주고 main으로 navigate 시켜주도록 함.
   }
-  // if (postData !== null && postData !== undefined) {
-  //   console.log(postData)
 
-  // }
+  
   return (
     <>
       <ContentsContainer>
@@ -96,7 +111,7 @@ function Contents() {
               <FontAwesomeIcon
                 style={BackArrow}
                 icon={faArrowLeft}
-                onClick={moveToMain}
+                onClick={moveToPrev}
               />
               <Image src={postData.Images} alt="user's hometraining image" />
             </ImageBox>
@@ -108,7 +123,7 @@ function Contents() {
                   email="a-email@example.com"
                 />
                 <ProfileUserName>{postData.userName}</ProfileUserName>
-                {liked ? (
+                {likedCheck.isClick === true ? (
                   <LikedButton onClick={clickToLiked}>
                     <FontAwesomeIcon icon={SolidHeart} style={likedStyleSet} />
                   </LikedButton>
@@ -123,16 +138,17 @@ function Contents() {
               <Substance>
                 <h3>{postData.title}</h3>
                 <p>
-                  {postData.body}
+                  {postData.content}
                 </p>
               </Substance>
               <ButtonBox>
-                <DeleteBtn onClick={deletePost}>
-                  <FontAwesomeIcon icon={faXmark} />
-                </DeleteBtn>
+                {userData === undefined || userData === null || userData.email !== postData.email ? <></> : 
+                  <DeleteBtn onClick={deletePost}>
+                    <FontAwesomeIcon icon={faXmark} />
+                  </DeleteBtn>}
                 {/* 유저 이름 같을 때 나오게 하고, 아니면 출력 삭제. */}
               </ButtonBox>
-              <Reply setRefresh={setRefresh} />
+              <Reply setRefresh={setRefresh} commentList={commentData} postData={postData} />
               <InputBox onSubmit={submitComment}>
                 <CommentInput
                   onChange={changeComment}

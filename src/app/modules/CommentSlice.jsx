@@ -4,26 +4,31 @@ import { instance } from "./instance";
 
 export const getCommentData = createAsyncThunk(
   "comment/getComment",
-  async () => {
-    const response = await instance.get("/comments");
-    return response.data;
+  async (payload, thunkAPI) => {
+    try {
+      const response = await (await instance.get(`/comments/${payload}`)).data.data;
+      return thunkAPI.fulfillWithValue(response);
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error);
+    }
   }
 );
 
 export const addCommentData = createAsyncThunk(
   "comment/addComment",
   async (payload) => {
-    const response = await instance.post("/comments", payload);
-    return response.data;
+    await instance.post(`/comments/${payload.postId}`, payload.comment);
+    return payload;
   }
 );
 
 export const deleteCommentData = createAsyncThunk(
   "comment/deleteComment",
   async (payload) => {
-    console.log(payload);
-    const response = await instance.delete(`/comments/${payload}`);
-    console.log(response);
+    console.log(payload)
+    const response = await instance.delete(`/comments/${payload.postID}/${payload.commentId}`);
+    console.log(response)
     return payload;
   }
 );
@@ -34,16 +39,19 @@ const CommentSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getCommentData.fulfilled, (state, action) => {
-      return action.payload;
+      return state = action.payload;
     });
     builder.addCase(addCommentData.fulfilled, (state, action) => {
-      console.log([...state, action.payload]);
-      return [...state, action.payload];
+      console.log([...state, action.payload])
+      return state = [...state, action.payload];
+      // addCase 관련으로 내일 수정
+      // 데이터 더해주고, commentId까지 더해진 결과값을 자신의 데이터로 반환시켜 내용에 바로 저장되도록.
     });
     builder.addCase(deleteCommentData.fulfilled, (state, action) => {
-      const abcd = [...state].filter((elem) => elem.id !== action.payload);
-      console.log(abcd);
-      return abcd;
+        console.log([...state].length)
+      return [...state].filter((elem) => { 
+        console.log(elem.commentId, action.payload.commentId)
+        return elem.commentId !== action.payload.commentId });
     });
   },
 });
