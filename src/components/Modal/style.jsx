@@ -7,7 +7,7 @@ export const WriteModal = styled.div`
   bottom: 0;
   top: 0;
   right: 0;
-  z-index: 100;
+  z-index: 90;
   color: black;
 
   & > div {
@@ -20,7 +20,7 @@ export const WriteModal = styled.div`
     border-radius: 6px;
     user-select: none;
     padding: 30px 40px 0;
-    z-index: 1012;
+    z-index: 90;
     position: relative;
   }
 `;
