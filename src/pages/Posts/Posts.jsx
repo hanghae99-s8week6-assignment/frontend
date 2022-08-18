@@ -9,16 +9,16 @@ import {
   CardImage,
   LinkToDetail,
 } from "./styles";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
 import Paging from "../../components/Paging/Paging";
-import { Link } from "react-router-dom";
+import { getPostAysnc } from "../../app/modules/postSlice";
 
 const Posts = () => {
   const [currentPosts, setCurrentPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [postPerPage] = useState(9);
 
+  const dispatch = useDispatch();
   const indexOfLastPost = page * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
 
@@ -29,8 +29,12 @@ const Posts = () => {
   const postData = useSelector((state) => state.posts.data?.Post);
 
   useEffect(() => {
+    dispatch(getPostAysnc());
+  }, []);
+
+  useEffect(() => {
     setCurrentPosts(postData?.slice(indexOfFirstPost, indexOfLastPost));
-  }, [indexOfFirstPost, indexOfLastPost]);
+  }, [indexOfFirstPost, indexOfLastPost, postData]);
 
   return (
     <>

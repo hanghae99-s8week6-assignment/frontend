@@ -79,8 +79,8 @@ const PostModal = ({ setShowWriteModal }) => {
           }
         });
       } else {
-        setLoading(true);
         dispatch(postPostAysnc({ title, content: body }));
+        setLoading(false);
       }
     },
     [title, body, fileUrl]
