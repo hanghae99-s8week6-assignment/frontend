@@ -3,16 +3,18 @@ import { LogOutModalWrap, ButtonWrap } from "./style";
 import { CloseModalButton } from "../Menu/styles";
 import { logoutAsync } from "../../app/modules/LoginSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const LogOutModal = ({ setShowLogOutModal, onCloseModal }) => {
   const dispatch = useDispatch();
   const noneLogout = useCallback(() => {
     setShowLogOutModal(false);
   }, []);
 
+  const navigate = useNavigate();
   const onLogOut = useCallback(() => {
     dispatch(logoutAsync());
     localStorage.removeItem("user");
-    window.location.reload();
+    navigate("/");
   }, []);
 
   return (
