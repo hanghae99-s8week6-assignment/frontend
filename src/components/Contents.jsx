@@ -99,6 +99,7 @@ function Contents() {
     // 받아오는 id를 체크해서 글 삭제해주고 main으로 navigate 시켜주도록 함.
   }
 
+  
   return (
     <>
       <ContentsContainer>
