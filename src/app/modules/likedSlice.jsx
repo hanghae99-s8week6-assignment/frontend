@@ -5,7 +5,7 @@ import { instance } from "./instance";
 export const getLikedFetch = createAsyncThunk(
   "liked/getLikedFetch",
   async(payload) => {
-    const response = await instance.post(`/post/${payload.postId}/like`, payload)
+    const response = await instance.get(`/post/${payload}/likestatus`)
     return response.data;
   }
 )
@@ -26,9 +26,13 @@ const likedSlice = createSlice({
     isclick: false,
   },
   extraReducers: builder => {
+    builder.addCase(getLikedFetch.fulfilled, (state, action) => {
+      return action.payload
+    })
     builder.addCase(toggleLikedFetch.fulfilled, (state, action) => {
-      return action.result
-  })}
+      return action.data
+    })
+  }
 })
 
 export default likedSlice;

@@ -21,18 +21,17 @@ function Contents() {
     email: "",
     content: "",
   };
-
-  const [comment, setComment] = useState(commentInitialState);
-  const [refresh, setRefresh] = useState(false);
-  const [liked, setLiked] = useState(false);
-  const dispatch = useDispatch();
-  const { id } = useParams();
-  const navigate = useNavigate();
-
   const userData = useSelector((state) => state.userLogin?.userLogin[0]);
   const postData = useSelector((state) => state.posts);
   const commentData = useSelector((state) => state.comment);
   const likedCheck = useSelector((state) => state.liked);
+
+  const [comment, setComment] = useState(commentInitialState);
+  const [refresh, setRefresh] = useState(false);
+  const [liked, setLiked] = useState(likedCheck.isclick);
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(()=> {
     dispatch(pickPostAysnc(Number(id)))
@@ -44,9 +43,8 @@ function Contents() {
   },[dispatch])
 
   useEffect(() => {
-    if (userData !== undefined && userData !== null)
-      dispatch(getLikedFetch(userData.email));
-  },[dispatch])
+      dispatch(getLikedFetch(id));
+  },[dispatch, liked])
 
   function changeComment(event) {
     setComment({ ...comment, content: event.target.value });
@@ -74,12 +72,11 @@ function Contents() {
   function clickToLiked(event) {
     const payload = {
       postId: postData.postId,
-      email:userData.email,
-      isClick: (!likedCheck.isClick)
+      email:userData.email
     }
     dispatch(toggleLikedFetch(payload))
-    setRefresh(true);
     setLiked(!liked)
+    setRefresh(true);
     // liked = 사람들이 좋아요 누른 횟수.
     // result = 정상적으로 숫자를 포함했는가..
     // 그러면 내가 이 글에 좋아요 찍었습니다 체크하는 게 어디려나..? 저 위의 post와는 다를려나?
@@ -98,7 +95,6 @@ function Contents() {
     navigate("/");
     // 받아오는 id를 체크해서 글 삭제해주고 main으로 navigate 시켜주도록 함.
   }
-
   
   return (
     <>
@@ -123,7 +119,7 @@ function Contents() {
                   email="a-email@example.com"
                 />
                 <ProfileUserName>{postData.userName}</ProfileUserName>
-                {likedCheck.isClick === true ? (
+                {liked === true ? (
                   <LikedButton onClick={clickToLiked}>
                     <FontAwesomeIcon icon={SolidHeart} style={likedStyleSet} />
                   </LikedButton>
