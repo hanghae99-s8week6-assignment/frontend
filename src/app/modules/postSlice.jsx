@@ -19,7 +19,7 @@ export const postPostAysnc = createAsyncThunk(
   "post/postThunk",
   async (data, thunkAPI) => {
     try {
-      const res = await instance.post("post", data);
+      const res = await instance.post("/post", data);
       return res.data;
     } catch (error) {
       console.error(error);
