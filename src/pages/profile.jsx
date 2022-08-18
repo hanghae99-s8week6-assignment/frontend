@@ -21,10 +21,6 @@ function Profile() {
     navigate(`/detail/${event.target.value}`);
   };
 
-  if (userData === []) {
-    navigate("/");
-  }
-
   return (
     <>
       <Header />

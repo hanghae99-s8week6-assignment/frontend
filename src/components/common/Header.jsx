@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userCheckThunk } from "../../app/modules/LoginSlice";
 import Gravatar from "react-gravatar";
 import LogOutModal from "../LogOutModal/LogOutModal";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -23,7 +24,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.userLogin?.userLogin[0]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(userCheckThunk());
   }, []);
@@ -46,6 +47,9 @@ const Header = () => {
   //   window.location.reload();
   // }, []);
 
+  if (userData === []) {
+    navigate("/");
+  }
   return (
     <>
       <HeaderWrapper>
