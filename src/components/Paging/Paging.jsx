@@ -1,8 +1,8 @@
 import React from "react";
-import { Pagination } from "react-js-pagination";
-
+import Pagination from "react-js-pagination";
+import "./styles.css";
 const Paging = ({
-  totalCout,
+  totalCount,
   postPerPage,
   pageRangeDisplayed,
   handlePageChange,
@@ -12,11 +12,16 @@ const Paging = ({
     <Pagination
       activePage={page}
       itemsCountPerPage={postPerPage}
-      totalItemsCount={totalCout ? totalCout : 0}
+      totalItemsCount={totalCount ? totalCount : 0}
       pageRangeDisplayed={pageRangeDisplayed}
       prevPageText={"<"}
       nextPageText={">"}
       onChange={handlePageChange}
+      activeLinkClass="actveLinkClass"
+      innerClass="pagination"
+      itemClass="itemClass"
+      linkClass="linkclass"
+      hideFirstLastPages={true}
     />
   );
 };

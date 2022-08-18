@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const PostsPageWrap = styled.div`
   padding: 0px 40px;
@@ -21,7 +22,7 @@ export const Title = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 25%;
+  min-width: 25%;
   padding: 1rem;
   background-color: #e7ecef;
   display: flex;
@@ -46,4 +47,12 @@ export const CardText = styled.div`
       font-size: 30px;
     }
   }
+`;
+
+export const LinkToDetail = styled(Link)`
+  text-decoration: none;
+  min-width: 25%;
+  color: black;
+  cursor: pointer;
+  display: block;
 `;

@@ -7,10 +7,12 @@ import {
   Card,
   CardText,
   CardImage,
+  LinkToDetail,
 } from "./styles";
-import { useDispatch, useSelector } from "react-redux";
-import { getPostAysnc } from "../../app/modules/postSlice";
+import { useSelector } from "react-redux";
+
 import Paging from "../../components/Paging/Paging";
+import { Link } from "react-router-dom";
 
 const Posts = () => {
   const [currentPosts, setCurrentPosts] = useState([]);
@@ -24,19 +26,12 @@ const Posts = () => {
     setPage(page);
   };
 
-  const dispatch = useDispatch();
-
   const postData = useSelector((state) => state.posts.data?.Post);
 
   useEffect(() => {
-    setCurrentPosts(postData.slice(indexOfFirstPost, indexOfLastPost));
+    setCurrentPosts(postData?.slice(indexOfFirstPost, indexOfLastPost));
   }, [indexOfFirstPost, indexOfLastPost]);
 
-  useEffect(() => {
-    dispatch(getPostAysnc());
-  }, []);
-
-  console.log("post:", postData);
   return (
     <>
       <Header />
@@ -45,29 +40,31 @@ const Posts = () => {
         <PostContainer>
           {currentPosts?.map((post) => {
             return (
-              <Card>
-                <CardText>
-                  <div>{post.userName}</div>
-                  {post.title.length < 12 ? (
-                    <div>{post.title}</div>
+              <LinkToDetail to={`/detail/${post.postId}`} key={post.postId}>
+                <Card>
+                  <CardText>
+                    <div>{post.userName}</div>
+                    {post.title.length < 12 ? (
+                      <div>{post.title}</div>
+                    ) : (
+                      <div>{post.title?.slice(0, 11)}...</div>
+                    )}
+                  </CardText>
+                  {post.Images ? (
+                    <CardImage src={post.Images} alt={post.title} />
                   ) : (
-                    <div>{post.title.slice(0, 11)}...</div>
+                    <CardImage
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgUbWShDanJ7FLzI0xAx0dCrIxbmHfX7_8sg&usqp=CAU"
+                      alt={post.title}
+                    />
                   )}
-                </CardText>
-                {post.Images ? (
-                  <CardImage src={post.Images} alt={post.title} />
-                ) : (
-                  <CardImage
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgUbWShDanJ7FLzI0xAx0dCrIxbmHfX7_8sg&usqp=CAU"
-                    alt={post.title}
-                  />
-                )}
-              </Card>
+                </Card>
+              </LinkToDetail>
             );
           })}
         </PostContainer>
         <Paging
-          totalCout={postData.length}
+          totalCount={postData?.length}
           page={page}
           postPerPage={postPerPage}
           pageRangeDisplayed={5}

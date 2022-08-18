@@ -44,9 +44,7 @@ const PostModal = ({ setShowWriteModal }) => {
       const imageUrl = URL.createObjectURL(compressedFile);
       setFileUrl(imageUrl);
       setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const onSubmitPost = useCallback(
@@ -87,7 +85,7 @@ const PostModal = ({ setShowWriteModal }) => {
     },
     [title, body, fileUrl]
   );
-  console.log(Loading);
+
   if (Posts.postLoading) {
     window.location.reload();
   }

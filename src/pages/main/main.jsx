@@ -20,14 +20,13 @@ import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 function Main() {
   const [showWriteModal, setShowWriteModal] = useState(false);
-  const [slidePx, setSlidePx] = useState(0);
-  const [slidePx2, setSlidePx2] = useState(0);
+  const [topslidePx, setTopSlidePx] = useState(0);
+  const [botslidePx, setBotSlidePx] = useState(0);
 
   const dispatch = useDispatch();
   const Posts = useSelector((state) => state.posts.data?.Post);
   const userData = useSelector((state) => state.userLogin?.userLogin[0]);
 
-  console.log(slidePx);
   useEffect(() => {
     dispatch(getPostAysnc());
   }, []);
@@ -37,27 +36,25 @@ function Main() {
     .slice(0, 10);
   const latesd = Posts?.slice(0, 24);
 
-  const prevSlide = () => {
-    if (slidePx < 0) setSlidePx(slidePx + 1632);
+  const topPrevSlide = () => {
+    if (topslidePx < 0) setTopSlidePx(topslidePx + 1632);
   };
-  const nextSlide = () => {
-    if (slidePx > -3266) setSlidePx(slidePx - 1632);
+  const topNextSlide = () => {
+    if (topslidePx > -3266) setTopSlidePx(topslidePx - 1632);
   };
-  const prevSlide2 = () => {
-    if (slidePx2 < 0) setSlidePx2(slidePx2 + 1632);
+  const botPrevSlide2 = () => {
+    if (botslidePx < 0) setBotSlidePx(botslidePx + 1632);
   };
-  const nextSlide2 = () => {
-    if (slidePx2 > -1632) setSlidePx2(slidePx2 - 1632);
+  const botPnextSlide2 = () => {
+    if (botslidePx > -1632) setBotSlidePx(botslidePx - 1632);
   };
 
   const onShowWriteModal = useCallback(() => {
     setShowWriteModal(true);
-    console.log(showWriteModal);
   }, []);
 
   const onCloseModal = useCallback(() => {
     setShowWriteModal(false);
-    console.log(showWriteModal);
   }, []);
 
   return (
@@ -72,10 +69,10 @@ function Main() {
             ) : null}
           </HeadWrap>
           <LatesButton>
-            <button onClick={prevSlide}>
+            <button onClick={topPrevSlide}>
               <FontAwesomeIcon icon={faAngleLeft} size="4x" />
             </button>
-            <button onClick={nextSlide}>
+            <button onClick={topNextSlide}>
               <FontAwesomeIcon icon={faAngleRight} size="4x" />
             </button>
           </LatesButton>
@@ -86,7 +83,7 @@ function Main() {
                 <LinkTo to={`/detail/${post.postId}`} key={post.postId}>
                   <Cards
                     style={{
-                      transform: `translateX(${slidePx}px)`,
+                      transform: `translateX(${topslidePx}px)`,
                       transition: "0.5s ease",
                     }}
                   >
@@ -113,10 +110,10 @@ function Main() {
         <BodyWrapper>
           <h3>현재 인기있는 게시물이에요!</h3>
           <LikedButton>
-            <button onClick={prevSlide2}>
+            <button onClick={botPrevSlide2}>
               <FontAwesomeIcon icon={faAngleLeft} size="4x" />
             </button>
-            <button onClick={nextSlide2}>
+            <button onClick={botPnextSlide2}>
               <FontAwesomeIcon icon={faAngleRight} size="4x" />
             </button>
           </LikedButton>
@@ -127,7 +124,7 @@ function Main() {
                 <LinkTo to={`/detail/${post.postId}`} key={post.postId}>
                   <Cards
                     style={{
-                      transform: `translateX(${slidePx2}px)`,
+                      transform: `translateX(${botslidePx}px)`,
                       transition: "0.5s ease",
                     }}
                   >
