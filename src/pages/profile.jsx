@@ -18,7 +18,7 @@ function Profile() {
   }, [dispatch]);
 
   const moveToDetailPage = (event) => {
-    navigate(`/detail/${postData.postId}`);
+    navigate(`/detail/${Number(event.target.value)}`);
   };
 
   return (
@@ -49,7 +49,7 @@ function Profile() {
               postData.Post.filter((elem) => elem.email === userData.email)
                 .sort((a, b) => b.liked - a.liked)
                 .map((elem) => (
-                  <SeriesCard onClick={moveToDetailPage}>
+                  <SeriesCard value={elem.postId} onClick={moveToDetailPage}>
                     <SeriesImageBox>
                       <SeriesImage
                         src={
@@ -207,10 +207,12 @@ const SeriesImageBox = styled.div`
   border-radius: 10px 10px 0 0;
 
   height: 25vh;
+  overflow: hidden;
 `;
 
 const SeriesImage = styled.img`
   width: 100%;
+  overflow: hidden;
 `;
 
 const SeriesTextBox = styled.div`
