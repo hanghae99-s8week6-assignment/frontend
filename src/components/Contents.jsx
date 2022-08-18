@@ -14,9 +14,8 @@ import { addCommentData, getCommentData } from "../app/modules/CommentSlice";
 import { deletePostAysnc, pickPostAysnc } from "../app/modules/postSlice";
 
 import { getLikedFetch, toggleLikedFetch } from "../app/modules/likedSlice";
-import { useNavigate, useParams } from "react-router-dom"; 
-import Gravatar from 'react-gravatar';
-
+import { useNavigate, useParams } from "react-router-dom";
+import Gravatar from "react-gravatar";
 
 function Contents() {
   const commentInitialState = {
@@ -36,18 +35,18 @@ function Contents() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(()=> {
-    dispatch(pickPostAysnc(Number(id)))
+  useEffect(() => {
+    dispatch(pickPostAysnc(Number(id)));
     setRefresh(false);
   }, [dispatch, refresh]);
 
-  useEffect(()=> {
-    dispatch(getCommentData(Number(id)))
-  },[dispatch])
+  useEffect(() => {
+    dispatch(getCommentData(Number(id)));
+  }, [dispatch]);
 
   useEffect(() => {
-      dispatch(getLikedFetch(id));
-  },[dispatch, liked])
+    dispatch(getLikedFetch(id));
+  }, [dispatch, liked]);
 
   function changeComment(event) {
     setComment({ ...comment, content: event.target.value });
@@ -55,13 +54,16 @@ function Contents() {
 
   function submitComment(event) {
     event.preventDefault();
-    if (comment.content.length === 0)
-      return;
+    if (comment.content.length === 0) return;
 
     const CommentData = {
       postId: postData.postId,
-      comment:{...comment, userName: userData.userName, email: userData.email}
-    }
+      comment: {
+        ...comment,
+        userName: userData.userName,
+        email: userData.email,
+      },
+    };
 
     dispatch(addCommentData(CommentData));
     setRefresh(true);
@@ -75,10 +77,10 @@ function Contents() {
   function clickToLiked(event) {
     const payload = {
       postId: postData.postId,
-      email:userData.email
-    }
-    dispatch(toggleLikedFetch(payload))
-    setLiked(!liked)
+      email: userData.email,
+    };
+    dispatch(toggleLikedFetch(payload));
+    setLiked(!liked);
     setRefresh(true);
     // liked = 사람들이 좋아요 누른 횟수.
     // result = 정상적으로 숫자를 포함했는가..
@@ -98,7 +100,11 @@ function Contents() {
     navigate("/");
     // 받아오는 id를 체크해서 글 삭제해주고 main으로 navigate 시켜주도록 함.
   }
-  
+
+  if (!userData) {
+    navigate("/");
+  }
+
   return (
     <>
       <ContentsContainer>
@@ -114,9 +120,14 @@ function Contents() {
                 icon={faArrowLeft}
                 onClick={moveToPrev}
               />
-              {postData.Images === null ? <Image src="https://images.unsplash.com/photo-1591311630200-ffa9120a540f" alt="user's hometraining image" /> :
-               <Image src={postData.Images} alt="user's hometraining image" />}
-              
+              {postData.Images === null ? (
+                <Image
+                  src="https://images.unsplash.com/photo-1591311630200-ffa9120a540f"
+                  alt="user's hometraining image"
+                />
+              ) : (
+                <Image src={postData.Images} alt="user's hometraining image" />
+              )}
             </ImageBox>
             <ContentsBox>
               <ProfileBar>
@@ -144,18 +155,25 @@ function Contents() {
               <Substance>
                 <h3>{postData.title}</h3>
 
-                <p>
-                  {postData.content}
-                </p>
+                <p>{postData.content}</p>
               </Substance>
               <ButtonBox>
-                {userData === undefined || userData === null || userData.email !== postData.email ? <></> : 
+                {userData === undefined ||
+                userData === null ||
+                userData.email !== postData.email ? (
+                  <></>
+                ) : (
                   <DeleteBtn onClick={deletePost}>
                     <FontAwesomeIcon icon={faXmark} />
-                  </DeleteBtn>}
+                  </DeleteBtn>
+                )}
                 {/* 유저 이름 같을 때 나오게 하고, 아니면 출력 삭제. */}
               </ButtonBox>
-              <Reply setRefresh={setRefresh} commentList={commentData} postData={postData} />
+              <Reply
+                setRefresh={setRefresh}
+                commentList={commentData}
+                postData={postData}
+              />
               <InputBox onSubmit={submitComment}>
                 <CommentInput
                   onChange={changeComment}
