@@ -36,8 +36,6 @@ function Contents() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  console.log(likedCheck.isclick)
-
   useEffect(()=> {
     dispatch(pickPostAysnc(Number(id)))
     setRefresh(false);
@@ -116,7 +114,9 @@ function Contents() {
                 icon={faArrowLeft}
                 onClick={moveToPrev}
               />
-              <Image src={postData.Images} alt="user's hometraining image" />
+              {postData.Images === null ? <Image src="https://images.unsplash.com/photo-1591311630200-ffa9120a540f" alt="user's hometraining image" /> :
+               <Image src={postData.Images} alt="user's hometraining image" />}
+              
             </ImageBox>
             <ContentsBox>
               <ProfileBar>
