@@ -21,7 +21,7 @@ function Profile() {
     navigate(`/detail/${event.target.value}`);
   };
 
-  if (!userData) {
+  if (userData === []) {
     navigate("/");
   }
 
