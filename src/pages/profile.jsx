@@ -18,7 +18,7 @@ function Profile() {
   }, [dispatch]);
 
   const moveToDetailPage = (event) => {
-    navigate(`/detail/${Number(event.target.value)}`);
+    navigate(`/detail/${event.target.value}`);
   };
 
   return (
