@@ -21,7 +21,7 @@ function Reply ({setRefresh, commentList, postData }) {
     setRefresh(true)
     setYeah("")
   }
-  console.log(commentList)
+
   return (
     <>
       <ReplyContainer>
@@ -33,7 +33,7 @@ function Reply ({setRefresh, commentList, postData }) {
               return <ReplyList key={elem.commentId}>
                 <ReplyName>{elem.userName}</ReplyName>
                 <ReplyComment>{elem.content}</ReplyComment>
-                {userData === undefined || userData.email !== postData.email ? <></> : <ReplyDeleteBtn type="button" id={elem.commentId} onClick={deleteComment}>
+                {userData === undefined || userData.email !== elem.email ? <></> : <ReplyDeleteBtn type="button" id={elem.commentId} onClick={deleteComment}>
                 {/* email 주소와 동일하면 해당 값 체크해주도록 함. */}
                 <FontAwesomeIcon style={{pointerEvents:"none"}} icon={faTrashCan}/> </ReplyDeleteBtn> }
               </ReplyList>})}

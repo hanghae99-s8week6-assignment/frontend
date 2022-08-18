@@ -18,17 +18,15 @@ export const getCommentData = createAsyncThunk(
 export const addCommentData = createAsyncThunk(
   "comment/addComment",
   async (payload) => {
-    await instance.post(`/comments/${payload.postId}`, payload.comment);
-    return payload;
+    const response = await instance.post(`/comments/${payload.postId}`, payload.comment);
+    return response.data;
   }
 );
 
 export const deleteCommentData = createAsyncThunk(
   "comment/deleteComment",
   async (payload) => {
-    console.log(payload)
-    const response = await instance.delete(`/comments/${payload.postID}/${payload.commentId}`);
-    console.log(response)
+    const response = await instance.delete(`/comments/${payload.commentId}`);
     return payload;
   }
 );
@@ -42,15 +40,10 @@ const CommentSlice = createSlice({
       return state = action.payload;
     });
     builder.addCase(addCommentData.fulfilled, (state, action) => {
-      console.log([...state, action.payload])
-      return state = [...state, action.payload];
-      // addCase 관련으로 내일 수정
-      // 데이터 더해주고, commentId까지 더해진 결과값을 자신의 데이터로 반환시켜 내용에 바로 저장되도록.
+      return state = action.payload.comment;
     });
     builder.addCase(deleteCommentData.fulfilled, (state, action) => {
-        console.log([...state].length)
       return [...state].filter((elem) => { 
-        console.log(elem.commentId, action.payload.commentId)
         return elem.commentId !== action.payload.commentId });
     });
   },
