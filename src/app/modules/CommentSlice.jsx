@@ -4,16 +4,21 @@ import { instance } from "./instance";
 
 export const getCommentData = createAsyncThunk(
   "comment/getComment",
-  async () => {
-    const response = await instance.get("/comments");
-    return response.data;
+  async (payload, thunkAPI) => {
+    try {
+      const response = await (await instance.get(`/comments/${payload}`)).data.data;
+      return thunkAPI.fulfillWithValue(response);
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue(error);
+    }
   }
 );
 
 export const addCommentData = createAsyncThunk(
   "comment/addComment",
   async (payload) => {
-    const response = await instance.post("/comments", payload);
+    const response = await instance.post(`/comments/${payload.postId}`, payload.comment);
     return response.data;
   }
 );
@@ -21,9 +26,7 @@ export const addCommentData = createAsyncThunk(
 export const deleteCommentData = createAsyncThunk(
   "comment/deleteComment",
   async (payload) => {
-    console.log(payload);
-    const response = await instance.delete(`/comments/${payload}`);
-    console.log(response);
+    const response = await instance.delete(`/comments/${payload.commentId}`);
     return payload;
   }
 );
@@ -34,16 +37,14 @@ const CommentSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getCommentData.fulfilled, (state, action) => {
-      return action.payload;
+      return state = action.payload;
     });
     builder.addCase(addCommentData.fulfilled, (state, action) => {
-      console.log([...state, action.payload]);
-      return [...state, action.payload];
+      return state = action.payload.comment;
     });
     builder.addCase(deleteCommentData.fulfilled, (state, action) => {
-      const abcd = [...state].filter((elem) => elem.id !== action.payload);
-      console.log(abcd);
-      return abcd;
+      return [...state].filter((elem) => { 
+        return elem.commentId !== action.payload.commentId });
     });
   },
 });

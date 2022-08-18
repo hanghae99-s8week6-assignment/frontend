@@ -87,7 +87,6 @@ const onClickSubmitHandler = (event) => {
        return navigate('/') 
     }
 };
-console.log(errormessage?.result)
 const [emailCheck, setEmailCheck] = useState(0)
 
 const onClickOverlap = () => {
@@ -100,6 +99,7 @@ const onClickOverlap = () => {
 //뷰
     return (
         <div className="bodyContainer">
+
         <h1 className="SignUpLogo">Sign-Up</h1>
         <div className="SignUpContainer">
             이름<input className="inputs" onFocus={onFocusUserNameValid} onBlur={onBlurUserNameValid} onChange={onChangeHandler} name="userName" type="text" placeholder="이름을 입력해주세요."/>
@@ -113,7 +113,7 @@ const onClickOverlap = () => {
         </section>
         
            아이디(e-mail)<input className="inputs" onFocus={onFocusEmailValid} onBlur={onBlurEmailValid} onChange={onChangeHandler} name="email" type="text" placeholder="email을 입력해주세요"/>
-            <button className="signUpButton" onClick={onClickOverlap}>체크</button>
+            <button className="overlapButton" onClick={onClickOverlap}>중복확인</button>
             
             <section className="messageContainer">
             

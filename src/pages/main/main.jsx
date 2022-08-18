@@ -49,6 +49,7 @@ function Main() {
     if (botslidePx > -1632) setBotSlidePx(botslidePx - 1632);
   };
 
+
   const onShowWriteModal = useCallback(() => {
     setShowWriteModal(true);
   }, []);

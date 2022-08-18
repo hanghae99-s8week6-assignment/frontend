@@ -1,63 +1,80 @@
 import React from "react";
 import styled from "styled-components";
 import Gravatar from "react-gravatar";
+import { useSelector, useDispatch } from "react-redux";
+import Header from "../components/common/Header";
+import { getPostAysnc } from "../app/modules/postSlice";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Profile() {
+
+
+function  Profile () {
+  const userData = useSelector((state) => state.userLogin?.userLogin[0]);
+  const postData = useSelector((state) => state.posts.data);
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getPostAysnc());
+  }, [dispatch]);
+
+  const moveToDetailPage = (event) => {
+    navigate(`/detail/${postData.postId}`)
+  }
+
+
   return (
+    <>
+    <Header />
     <ProfileContainer>
       <ProfileBox>
-        <Gravatar
-          style={ProfileImage}
-          default="identicon"
-          email="a-email@example.com"
-        />
-        <ProfileUserName>황당한 너구리</ProfileUserName>
-        <ProfileEmail>a-email@example.com</ProfileEmail>
+
+        {userData === undefined || userData === null ? <div>로딩중입니다..</div> : <>
+        <Gravatar style={ProfileImage} default="identicon" email={userData.email} />
+        <ProfileUserName>{userData.userName}</ProfileUserName>
+        <ProfileEmail>{userData.email}</ProfileEmail></>}
+
       </ProfileBox>
       <WritingBox>
         <SeriesInfoText>최근 올린 포스트</SeriesInfoText>
         <SeriesCardList>
-          <SeriesCard>
-            <SeriesImageBox>
-              <SeriesImage src="https://www.mensjournal.com/wp-content/uploads/2018/02/home-workout.jpg" />
-            </SeriesImageBox>
-            <SeriesTextBox>
-              <TextBoxTitle>크런치 운동, 잘 하고 계신가요?</TextBoxTitle>
-              <TextBoxUserName>황당한 너구리</TextBoxUserName>
-            </SeriesTextBox>
-          </SeriesCard>
-          <SeriesCard>
-            <SeriesImageBox>
-              <SeriesImage src="https://www.mensjournal.com/wp-content/uploads/2018/02/home-workout.jpg" />
-            </SeriesImageBox>
-            <SeriesTextBox>
-              <TextBoxTitle>크런치 운동, 잘 하고 계신가요?</TextBoxTitle>
-              <TextBoxUserName>황당한 너구리</TextBoxUserName>
-            </SeriesTextBox>
-          </SeriesCard>
-          <SeriesCard>
-            <SeriesImageBox>
-              <SeriesImage src="https://www.mensjournal.com/wp-content/uploads/2018/02/home-workout.jpg" />
-            </SeriesImageBox>
-            <SeriesTextBox>
-              <TextBoxTitle>크런치 운동, 잘 하고 계신가요?</TextBoxTitle>
-              <TextBoxUserName>황당한 너구리</TextBoxUserName>
-            </SeriesTextBox>
-          </SeriesCard>
+          {postData === undefined || postData.length === 0 ?
+            <div>로딩중입니다...</div> :
+            postData.Post.filter(elem => elem.email === userData.email)
+                .sort((a, b) => b.liked - a.liked)
+                  .map(elem => 
+              <SeriesCard onClick={moveToDetailPage}>
+                <SeriesImageBox>
+                  <SeriesImage src={elem.Images === "" ? "https://images.unsplash.com/photo-1591311630200-ffa9120a540f" : elem.Images} alt="Home traning Image" />
+                </SeriesImageBox>
+                <SeriesTextBox>
+                  <TextBoxTitle>{elem.title}</TextBoxTitle>
+                  <TextBoxUserName>{elem.userName}</TextBoxUserName>
+                </SeriesTextBox>
+              </SeriesCard>)}
         </SeriesCardList>
         <SeriesInfoText>좋아요 많이 받은 포스트</SeriesInfoText>
-        <SeriesCard>
-          <SeriesImageBox>
-            <SeriesImage src="https://www.mensjournal.com/wp-content/uploads/2018/02/home-workout.jpg" />
-          </SeriesImageBox>
-          <SeriesTextBox>
-            <TextBoxTitle>크런치 운동, 잘 하고 계신가요?</TextBoxTitle>
-            <TextBoxUserName>황당한 너구리</TextBoxUserName>
-          </SeriesTextBox>
-        </SeriesCard>
+
+        <SeriesCardList>
+          {postData === undefined || postData.length === 0 || userData === undefined ?
+            <div>로딩중입니다...</div> :
+            postData.Post.filter(elem => elem.email === userData.email).map(elem => 
+              <SeriesCard onClick={moveToDetailPage}>
+                <SeriesImageBox>
+                  <SeriesImage src={elem.Images === "" ? "https://images.unsplash.com/photo-1591311630200-ffa9120a540f" : elem.Images} alt="Home traning Image" />
+                </SeriesImageBox>
+                <SeriesTextBox>
+                  <TextBoxTitle>{elem.title}</TextBoxTitle>
+                  <TextBoxUserName>{elem.userName}</TextBoxUserName>
+                </SeriesTextBox>
+              </SeriesCard>)}
+        </SeriesCardList>
       </WritingBox>
     </ProfileContainer>
-  );
+    </>
+  )
+
 }
 
 const ProfileContainer = styled.div`
@@ -65,9 +82,12 @@ const ProfileContainer = styled.div`
   grid-template-columns: 1fr 1.8fr;
   justify-content: center;
 
-  margin: auto;
-  margin-top: 4rem;
-`;
+
+  margin:auto;
+  margin-top:7rem;
+  
+`
+
 
 const ProfileBox = styled.div`
   background: #e7ecef;
