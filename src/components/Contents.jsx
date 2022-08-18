@@ -36,6 +36,7 @@ function Contents() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  console.log(likedCheck.isclick)
 
   useEffect(()=> {
     dispatch(pickPostAysnc(Number(id)))

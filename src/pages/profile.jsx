@@ -51,14 +51,8 @@ function Profile() {
                 .map((elem) => (
                   <SeriesCard value={elem.postId} onClick={moveToDetailPage}>
                     <SeriesImageBox>
-                      <SeriesImage
-                        src={
-                          elem.Images === ""
-                            ? "https://images.unsplash.com/photo-1591311630200-ffa9120a540f"
-                            : elem.Images
-                        }
-                        alt="Home traning Image"
-                      />
+                    {elem.Images === null ? <SeriesImage src="https://images.unsplash.com/photo-1591311630200-ffa9120a540f" alt="Home traning Image"/> :
+                      <SeriesImage src={elem.Images} alt="Home traning Image"/>}
                     </SeriesImageBox>
                     <SeriesTextBox>
                       <TextBoxTitle>{elem.title}</TextBoxTitle>
@@ -77,24 +71,18 @@ function Profile() {
               <div>로딩중입니다...</div>
             ) : (
               postData.Post.filter((elem) => elem.email === userData.email).map(
-                (elem) => (
-                  <SeriesCard onClick={moveToDetailPage}>
+                (elem) => {
+                  return <SeriesCard onClick={moveToDetailPage}>
                     <SeriesImageBox>
-                      <SeriesImage
-                        src={
-                          elem.Images === ""
-                            ? "https://images.unsplash.com/photo-1591311630200-ffa9120a540f"
-                            : elem.Images
-                        }
-                        alt="Home traning Image"
-                      />
+                      {elem.Images === null ? <SeriesImage src="https://images.unsplash.com/photo-1591311630200-ffa9120a540f" alt="Home traning Image"/> :
+                      <SeriesImage src={elem.Images} alt="Home traning Image"/>}
                     </SeriesImageBox>
                     <SeriesTextBox>
                       <TextBoxTitle>{elem.title}</TextBoxTitle>
                       <TextBoxUserName>{elem.userName}</TextBoxUserName>
                     </SeriesTextBox>
                   </SeriesCard>
-                )
+                }
               )
             )}
           </SeriesCardList>
