@@ -10,7 +10,6 @@ export const getPostAysnc = createAsyncThunk(
       const res = await instance.get("/post");
       return res.data;
     } catch (error) {
-      console.error(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -63,14 +62,16 @@ export const postSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getPostAysnc.fulfilled, (state, action) => ({
-        ...state, data: action.payload,
+        ...state,
+        data: action.payload,
       }))
       .addCase(postPostAysnc.pending, (state, action) => ({
         ...state,
         postLoading: false,
       }))
       .addCase(postPostAysnc.fulfilled, (state, action) => ({
-        data: action.payload, ...state,
+        data: action.payload,
+        ...state,
         postLoading: true,
       }))
       .addCase(pickPostAysnc.fulfilled, (state, action) => {
